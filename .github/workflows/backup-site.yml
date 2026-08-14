@@ -1,0 +1,50 @@
+name: Backup site daily
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run site backup
+        run: |
+          chmod +x scripts/backup-site.sh
+          BACKUP_ROOT="$GITHUB_WORKSPACE/.backups" ./scripts/backup-site.sh
+
+      - name: Commit backup artifacts
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .backups
+          if git diff --cached --quiet; then
+            echo "No new backup data to commit."
+            exit 0
+          fi
+          git commit -m "Backup site $(date +%Y-%m-%d)"
+          git push
+
+      - name: Notify desktop via ntfy
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        if: ${{ env.NTFY_TOPIC != '' }}
+        run: |
+          curl -fsS \
+            -H "Title: Kboxhubia backup" \
+            -d "Backup site $(date +%Y-%m-%d) completed successfully." \
+            "https://ntfy.sh/${NTFY_TOPIC}"
