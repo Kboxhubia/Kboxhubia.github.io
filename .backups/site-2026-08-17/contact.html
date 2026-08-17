@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contacto - Kboxhubia</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <header class="site-header"><div class="container"><a class="brand" href="/">Kboxhubia</a><nav class="nav"><a href="/">Home</a><a href="/services.html">Servicios</a><a href="/projects.html">Proyectos</a><a href="/blog/index.html">Publicaciones</a></nav></div></header>
+  <main class="container contact-page">
+    <h1>Contacto</h1>
+    <p>Usa el formulario para solicitar una cita o preguntar por servicios. También puedes usar Calendly o Google Calendar (integración pendiente).</p>
+
+    <form id="contactForm">
+      <label>Nombre<input type="text" id="name" required></label>
+      <label>Email<input type="email" id="email" required></label>
+      <label>Motivo<textarea id="message" required></textarea></label>
+      <label>¿Cita? <select id="meetingType"><option value="none">No</option><option value="calendly">Calendly</option><option value="google">Google Calendar</option></select></label>
+      <button type="submit" class="btn primary">Enviar</button>
+    </form>
+
+    <hr>
+    <h2>WhatsApp (requiere autorización)</h2>
+    <p>Para obtener acceso a mi número de WhatsApp debe solicitarlo aquí. Yo recibiré la petición y la aprobaré manualmente; se generará un QR y un enlace con mensaje de bienvenida.</p>
+    <form id="waRequestForm">
+      <label>Nombre<input id="wa_name" required></label>
+      <label>Email<input id="wa_email" type="email" required></label>
+      <label>Motivo<textarea id="wa_reason" required></textarea></label>
+      <button id="wa
