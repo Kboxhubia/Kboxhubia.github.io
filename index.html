@@ -32,10 +32,15 @@
       </nav>
 
       <div class="header-actions">
-        <button id="langToggleBtn" class="lang-btn" aria-label="Cambiar Idioma">
-          <span class="lang-code">ES</span> / <span class="lang-code dimmed">EN</span>
+        <button id="langToggleBtn" class="lang-btn modern-nav-btn" aria-label="Cambiar Idioma">
+          <span class="flag-icon">🇪🇸</span> <span class="lang-code text-es">ES</span> <span class="divider">|</span> <span class="flag-icon dim">🇺🇸</span> <span class="lang-code text-en dimmed">EN</span>
         </button>
-        <a href="admin.html" class="btn-admin-link" title="Acceso al Panel Admin">Admin</a>
+        <button id="openVirtualCafeBtn" class="btn-virtual-cafe-nav" title="Café Virtual con Agente IA">
+          <span class="cafe-pulse">☕</span> <span data-i18n="navCafe">Café Virtual</span>
+        </button>
+        <a href="#adminAuthModal" id="adminAuthTrigger" class="btn-admin-link modern-nav-btn" title="Acceso al Panel Admin">
+          <span class="lock-icon">🔒</span> <span data-i18n="navAdmin">Admin</span>
+        </a>
         <button class="mobile-menu-toggle" id="menuToggle" aria-label="Abrir Menú">
           <span></span><span></span><span></span>
         </button>
@@ -64,8 +69,10 @@
           </p>
 
           <div class="cta-row">
-            <a class="btn primary" href="#contacto">Solicitar Consultoría</a>
-            <a class="btn secondary" href="#proyectos">Explorar Proyectos</a>
+            <button class="btn primary glow-btn" id="startCafeHeroBtn">
+              <span>☕</span> <span data-i18n="heroBtnCafe">Agendar en Café Virtual IA</span>
+            </button>
+            <a class="btn secondary" href="#servicios" data-i18n="heroBtnServices">Ver Catálogo de Servicios</a>
             <a class="btn outline" href="https://github.com/Kboxhubia" target="_blank" rel="noopener">
               <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
               GitHub Perfil
@@ -577,8 +584,10 @@
           </div>
 
           <div class="contact-form-card">
-            <h3>Enviar un Mensaje Directo</h3>
-            <form id="contactForm" onsubmit="event.preventDefault(); alert('¡Gracias por su mensaje! Nos pondremos en contacto a la brevedad.');">
+            <h3>Enviar un Mensaje Directo a huboxhubia@gmail.com</h3>
+            <form id="contactForm" action="https://formspree.io/f/xbjnqpyz" method="POST" onsubmit="handleDirectContactForm(event)">
+              <input type="hidden" name="_to" value="huboxhubia@gmail.com">
+              <input type="hidden" name="_subject" value="Nuevo mensaje desde Landing Page Kboxhubia">
               <div class="form-group">
                 <label for="name">Nombre Completo</label>
                 <input type="text" id="name" name="name" placeholder="Ej. Ing. Carlos Mendoza" required>
@@ -602,26 +611,277 @@
                 <label for="message">Mensaje / Detalle del Proyecto</label>
                 <textarea id="message" name="message" rows="4" placeholder="Describa brevemente su necesidad o proyecto..." required></textarea>
               </div>
-              <button type="submit" class="btn primary full-width">Enviar Mensaje</button>
+              <button type="submit" class="btn primary full-width glow-action-btn" id="contactSubmitBtn">Enviar Mensaje & Notificar a Gmail ✉️</button>
             </form>
           </div>
 
         </div>
       </div>
     </section>
+
+    <!-- Subscriptions & Publications Area -->
+    <section class="section alt" id="suscripcion">
+      <div class="container">
+        <div class="newsletter-card">
+          <div class="newsletter-info">
+            <span class="eyebrow" data-i18n="subEyebrow">Comunidad & Publicaciones</span>
+            <h3 data-i18n="subTitle">Suscríbete a Publicaciones, Artículos, Muros y Proyectos DeepTech</h3>
+            <p data-i18n="subDesc">Recibe actualizaciones sobre nuevos agentes, artículos técnicos, documentos de arquitectura y lanzamientos multimedia en tu correo.</p>
+          </div>
+          <form id="subscribeForm" class="subscribe-form" onsubmit="handleSubscribe(event)">
+            <input type="email" id="subEmail" placeholder="tu-correo@empresa.com" required>
+            <button type="submit" class="btn primary" data-i18n="subBtn">Suscribirme Gratis</button>
+          </form>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- Cafe Virtual AI Assistant Floating Widget & Modal Container -->
+  <div class="cafe-widget-launcher" id="cafeLauncher" onclick="toggleVirtualCafeModal(true)">
+    <div class="cafe-avatar-pulse">
+      <span class="avatar-emoji">☕</span>
+      <span class="online-indicator"></span>
+    </div>
+    <div class="launcher-text">
+      <span class="launcher-title" data-i18n="cafeLauncherTitle">Café Virtual IA</span>
+      <span class="launcher-sub" data-i18n="cafeLauncherSub">Agendar Cita con Jorge Huerta</span>
+    </div>
+  </div>
+
+  <!-- Virtual Cafe Modal Engine -->
+  <div class="modal-overlay" id="cafeModalOverlay">
+    <div class="modal-content cafe-modal-box">
+      <div class="modal-header">
+        <div class="agent-avatar-header">
+          <div class="avatar-circle">🤖</div>
+          <div>
+            <h4>Asistente Virtual & Embudo de Ventas — Ing. Jorge Huerta</h4>
+            <span class="status-online">● En Línea | Venezuela (VET UTC-4) 07:00 - 19:00</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="toggleVirtualCafeModal(false)">&times;</button>
+      </div>
+
+      <div class="modal-body cafe-chat-container">
+        <!-- Step 1: Initial Greeting & Prospect Classification -->
+        <div class="chat-step active" id="cafeStep1">
+          <div class="chat-bubble agent">
+            <p>¡Hola! Bienvenid@ al <strong>Café Virtual de Ing. Jorge Huerta</strong>. ☕</p>
+            <p>Soy el Agente IA de bienvenida. Para brindarle la mejor experiencia y personalizar nuestro catálogo de servicios, por favor cuénteme:</p>
+            <p><strong>¿Nos visita como Empresa / Organización o como Cliente Particular?</strong></p>
+          </div>
+          <div class="option-grid">
+            <button class="opt-btn" onclick="selectClientType('Empresa')">
+              <span class="opt-icon">🏢</span>
+              <strong>Empresa / Organización</strong>
+              <small>Proyectos corporativos, consultoría de alto nivel y enjambres de agentes.</small>
+            </button>
+            <button class="opt-btn" onclick="selectClientType('Particular')">
+              <span class="opt-icon">👤</span>
+              <strong>Cliente Particular / Profesional</strong>
+              <small>Desarrollos a medida, asesoría personalizada y proyectos individuales.</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Sector & Interests Qualification -->
+        <div class="chat-step" id="cafeStep2">
+          <div class="chat-bubble agent">
+            <p>Perfecto. Ha seleccionado el perfil <strong id="displayClientType">Empresa</strong>. Para perfilar adecuadamente su requerimiento:</p>
+            <p><strong>1. Indique el sector de su actividad o empresa:</strong></p>
+          </div>
+          <div class="form-group">
+            <select id="prospectSector" onchange="enableStep2Next()">
+              <option value="" disabled selected>-- Seleccione su Sector --</option>
+              <option value="Tecnología & Software">Tecnología & Software</option>
+              <option value="Telecomunicaciones & Redes">Telecomunicaciones & Redes</option>
+              <option value="Finanzas & Fintech">Finanzas & Fintech</option>
+              <option value="Salud & Biotecnología">Salud & Biotecnología</option>
+              <option value="Educación & E-Learning">Educación & E-Learning</option>
+              <option value="Gobierno & Sector Público">Gobierno & Sector Público</option>
+              <option value="Comercio / E-commerce">Comercio / E-commerce</option>
+              <option value="Otro Sector">Otro Sector</option>
+            </select>
+          </div>
+          <div class="chat-bubble agent">
+            <p><strong>2. ¿Cuál es el problema o necesidad principal que desea abordar?</strong></p>
+          </div>
+          <div class="form-group">
+            <textarea id="prospectNeeds" rows="3" placeholder="Ej. Queremos integrar un agente supervisor MCP con nuestra base de datos en Supabase y agilizar nuestro soporte..."></textarea>
+          </div>
+          <button class="btn primary full-width" onclick="proceedToScheduling()">Continuar a Selección de Fecha & Hora &rarr;</button>
+        </div>
+
+        <!-- Step 3: Date, Timezone & Conference Selection -->
+        <div class="chat-step" id="cafeStep3">
+          <div class="chat-bubble agent">
+            <p>Excelentes detalles. Ahora vamos a agendar nuestra reunión virtual. 🗓️</p>
+            <p><em>Mis horas de atención son de <strong>Lunes a Domingo de 07:00 a 19:00 (Hora Venezuela VET / UTC-4)</strong>. Ajustaremos automáticamente su zona horaria.</em></p>
+          </div>
+
+          <div class="scheduling-box">
+            <div class="form-row-grid">
+              <div class="form-group">
+                <label>Su País de Origen / Zona Horaria</label>
+                <select id="clientCountryTimezone" onchange="updateTimezoneConversion()">
+                  <option value="Venezuela (UTC-4)" selected>Venezuela (UTC-4)</option>
+                  <option value="Colombia / Perú / Ecuador (UTC-5)">Colombia / Perú / Ecuador (UTC-5)</option>
+                  <option value="México CDMX (UTC-6)">México CDMX (UTC-6)</option>
+                  <option value="España / Europa Central (UTC+2)">España / Europa Central (UTC+2)</option>
+                  <option value="Estados Unidos Este (UTC-4)">USA Este (UTC-4)</option>
+                  <option value="Estados Unidos Pacífico (UTC-7)">USA Pacífico (UTC-7)</option>
+                  <option value="Argentina / Chile (UTC-3)">Argentina / Chile (UTC-3)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Plataforma Preferida</label>
+                <select id="meetingPlatform">
+                  <option value="Google Meet">Google Meet</option>
+                  <option value="Zoom Video">Zoom Video</option>
+                  <option value="Llamada Directa / Teams">Microsoft Teams</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-group">
+                <label>Fecha de la Cita</label>
+                <input type="date" id="meetingDate" onchange="validateMeetingDateTime()">
+              </div>
+              <div class="form-group">
+                <label>Hora Propuesta (Hora Local)</label>
+                <input type="time" id="meetingTime" min="07:00" max="19:00" onchange="validateMeetingDateTime()">
+              </div>
+            </div>
+
+            <!-- Glowing Visual Confirmation Box -->
+            <div id="timezoneFlashCard" class="timezone-flash-card hidden">
+              <div class="flash-icon">✨</div>
+              <div class="flash-details">
+                <h5 id="flashStatusText">Fecha & Hora Certificadas</h5>
+                <p id="flashTimeComparison">Hora Venezuela (Ing. Jorge Huerta): --:-- | Su Hora Local: --:--</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-bubble agent" style="margin-top: 1rem;">
+            <p><strong>3. Datos de Contacto & Participantes:</strong></p>
+          </div>
+
+          <div class="form-group">
+            <label>Su Nombre Completo / Empresa</label>
+            <input type="text" id="clientFullName" placeholder="Ej. Ing. Carlos Mendoza">
+          </div>
+          <div class="form-group">
+            <label>Su Correo Principal (Obligatorio)</label>
+            <input type="email" id="clientEmail" placeholder="ejemplo@empresa.com" required>
+          </div>
+          <div class="form-group">
+            <label>Correos adicionales a notificar (separados por coma)</label>
+            <input type="text" id="additionalEmails" placeholder="socio1@empresa.com, gerente@empresa.com">
+          </div>
+
+          <button class="btn primary full-width glow-action-btn" onclick="generateMeetingSummary()">Certificar Datos & Ver Resumen Resumen &rarr;</button>
+        </div>
+
+        <!-- Step 4: Summary Confirmation & Final Dispatch -->
+        <div class="chat-step" id="cafeStep4">
+          <div class="chat-bubble agent">
+            <p>🎉 <strong>Resumen de Cita Certificado Automáticamente:</strong></p>
+            <p>Por favor revise la información antes de enviar el registro a <code>huboxhubia@gmail.com</code>:</p>
+          </div>
+
+          <div class="summary-card" id="summaryCardDetails">
+            <!-- Dynamic HTML inserted via JS -->
+          </div>
+
+          <div class="summary-actions">
+            <button class="btn secondary" onclick="backToStep(3)">&larr; Editar Datos</button>
+            <button class="btn primary glow-action-btn" id="confirmDispatchBtn" onclick="dispatchMeetingRequest()">Confirmar Cita & Notificar a Todos los Correos ✉️</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Final Success Feedback -->
+        <div class="chat-step" id="cafeStep5">
+          <div class="success-box">
+            <div class="success-icon">✅</div>
+            <h3>¡Cita Agendada y Notificaciones Enviadas con Éxito!</h3>
+            <p>Se ha registrado la solicitud de reunión con el perfilamiento inicial. Se envió copia a <strong>huboxhubia@gmail.com</strong> y a los correos indicados.</p>
+            <p>En breve recibirá el enlace oficial de <strong>Google Meet / Zoom</strong> en su bandeja de entrada.</p>
+            <button class="btn primary" onclick="toggleVirtualCafeModal(false)">Cerrar Café Virtual</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Login Auth Gate Modal -->
+  <div class="modal-overlay" id="adminAuthModal">
+    <div class="modal-content auth-modal-box">
+      <div class="modal-header">
+        <h4>🔒 Acceso Restringido — Panel de Administración</h4>
+        <button class="modal-close-btn" onclick="toggleAdminModal(false)">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="auth-notice">Para acceder al panel privado de módulos web y móviles, debe autenticarse. Cada inicio de sesión notifica automáticamente al Ing. Jorge Huerta.</p>
+        <div class="auth-options">
+          <button class="auth-btn google-auth" onclick="simulateAuthLogin('Gmail / Google SSO')">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            Autenticarse con Gmail / Google
+          </button>
+          <button class="auth-btn github-auth" onclick="simulateAuthLogin('GitHub OAuth')">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            Autenticarse con GitHub
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repo Download Authorization Request Modal -->
+  <div class="modal-overlay" id="downloadAuthModal">
+    <div class="modal-content auth-modal-box">
+      <div class="modal-header">
+        <h4>🛡️ Autorización de Descarga Requerida</h4>
+        <button class="modal-close-btn" onclick="toggleDownloadModal(false)">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Para autorizar la descarga o acceso al repositorio fuente, por favor indique su correo para emitir la notificación de aprobación al Administrador:</p>
+        <form onsubmit="handleRepoDownloadRequest(event)">
+          <div class="form-group">
+            <label>Correo Electrónico de Quien Solicita</label>
+            <input type="email" id="downloadUserEmail" placeholder="correo@empresa.com" required>
+          </div>
+          <button type="submit" class="btn primary full-width">Notificar al Ing. Jorge Huerta para Autorizar Descarga</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Consent & Analytics Notification Bar -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+      <p>🍪 Este sitio utiliza cookies y analíticas de navegación para registrar métricas de uso y ofrecer una experiencia personalizada. Al continuar, usted acepta nuestra política de privacidad.</p>
+      <div class="cookie-buttons">
+        <button class="btn primary" onclick="acceptCookies()">Aceptar Cookies & Analytics</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container footer-content">
       <div class="footer-left">
         <p>&copy; <span id="currentYear"></span> <strong>Ing. Jorge Huerta</strong> — Kboxhubia. Todos los derechos reservados.</p>
-        <p class="footer-subtext">Diseñado con enfoque DeepTech, IA Agentica & Alto Rendimiento.</p>
+        <p class="footer-subtext">Diseñado con enfoque DeepTech, IA Agentica & Alto Rendimiento (Visitas Registradas: <span id="visitorCounter">1,248</span>).</p>
       </div>
       <div class="footer-right">
         <a href="https://github.com/Kboxhubia" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/jorgehuertatelecom" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="admin.html">Panel Privado</a>
+        <a href="#adminAuthModal" onclick="toggleAdminModal(true)">Panel Privado Admin</a>
       </div>
     </div>
   </footer>
