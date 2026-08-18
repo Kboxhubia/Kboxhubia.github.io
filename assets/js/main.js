@@ -1,81 +1,142 @@
+/* ==========================================================================
+   Kboxhubia — Main Interactive Script
+   Author: Ing. Jorge Huerta
+   ========================================================================== */
+
 document.addEventListener('DOMContentLoaded', () => {
-  const yearEls = document.querySelectorAll('[data-year]');
-  yearEls.forEach((el) => {
-    el.textContent = new Date().getFullYear();
+  initYear();
+  initMobileMenu();
+  initSmoothScrollAndActiveNav();
+  initLanguageToggle();
+  fetchGitHubRepos();
+});
+
+/* 1. Dynamic Footer Year */
+function initYear() {
+  const currentYear = new Date().getFullYear();
+  const yearElem = document.getElementById('currentYear');
+  if (yearElem) yearElem.textContent = currentYear;
+
+  // Legacy fallback elements if present
+  ['year', 'year2', 'year3', 'year4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = currentYear;
   });
+}
 
-  const repoList = document.getElementById('repo-list');
-  if (repoList) {
-    fetch('https://api.github.com/users/Kboxhubia/repos?per_page=6')
-      .then((response) => response.ok ? response.json() : [])
-      .then((repos) => {
-        if (!Array.isArray(repos) || repos.length === 0) {
-          repoList.innerHTML = '<p>No pude cargar los repositorios públicos en este momento.</p>';
-          return;
-        }
+/* 2. Mobile Navigation Toggle */
+function initMobileMenu() {
+  const toggleBtn = document.getElementById('menuToggle');
+  const mainNav = document.getElementById('main-nav');
 
-        repoList.innerHTML = repos
-          .sort((a, b) => Number(b.stargazers_count || 0) - Number(a.stargazers_count || 0))
-          .map((repo) => `
-            <article class="card">
-              <span class="tag">Repo</span>
-              <h3>${repo.name}</h3>
-              <p>${repo.description || 'Sin descripción disponible.'}</p>
-              <p><strong>⭐</strong> ${repo.stargazers_count || 0} · <strong>🍴</strong> ${repo.forks_count || 0}</p>
-              <a class="btn ghost" href="${repo.html_url}" target="_blank" rel="noreferrer">Abrir</a>
-            </article>
-          `)
-          .join('');
-      })
-      .catch(() => {
-        repoList.innerHTML = '<p>La API de GitHub no respondió en este momento.</p>';
+  if (toggleBtn && mainNav) {
+    toggleBtn.addEventListener('click', () => {
+      mainNav.classList.toggle('open');
+    });
+
+    // Close menu on link click
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('open');
       });
-  }
-
-  const uploadForm = document.getElementById('privateUploadForm');
-  const fileInput = document.getElementById('privateFiles');
-  const uploadSummary = document.getElementById('uploadSummary');
-
-  if (uploadForm && fileInput && uploadSummary) {
-    const key = 'kboxhubia-private-uploads';
-    const readSaved = () => {
-      try {
-        return JSON.parse(localStorage.getItem(key) || '[]');
-      } catch {
-        return [];
-      }
-    };
-
-    const renderSummary = () => {
-      const saved = readSaved();
-      if (!saved.length) {
-        uploadSummary.innerHTML = '<p>No hay archivos guardados en este navegador.</p>';
-        return;
-      }
-
-      uploadSummary.innerHTML = `
-        <p><strong>${saved.length}</strong> archivo(s) guardado(s) localmente.</p>
-        <ul>${saved.map((name) => `<li>${name}</li>`).join('')}</ul>
-      `;
-    };
-
-    renderSummary();
-
-    uploadForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const files = Array.from(fileInput.files || []);
-      if (!files.length) {
-        uploadSummary.innerHTML = '<p>Debes seleccionar al menos un archivo antes de guardar.</p>';
-        return;
-      }
-
-      const existing = readSaved();
-      const names = files.map((file) => file.name);
-      const merged = [...new Set([...existing, ...names])];
-      localStorage.setItem(key, JSON.stringify(merged));
-      renderSummary();
-      fileInput.value = '';
-      uploadSummary.insertAdjacentHTML('beforeend', '<p>Los archivos quedaron disponibles en este navegador para una carga posterior a un almacenamiento privado.</p>');
     });
   }
-});
+}
+
+/* 3. Smooth Scroll & Active Nav Highlighting */
+function initSmoothScrollAndActiveNav() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollY = window.pageYOffset;
+
+    sections.forEach(section => {
+      const sectionHeight = section.offsetHeight;
+      const sectionTop = section.offsetTop - 120;
+      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+}
+
+/* 4. Language Toggle Mock / Multilingual Handler */
+let currentLang = 'ES';
+function initLanguageToggle() {
+  const langBtn = document.getElementById('langToggleBtn');
+  if (langBtn) {
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'ES' ? 'EN' : 'ES';
+      langBtn.innerHTML = currentLang === 'ES'
+        ? '<span class="lang-code">ES</span> / <span class="lang-code dimmed">EN</span>'
+        : '<span class="lang-code dimmed">ES</span> / <span class="lang-code">EN</span>';
+
+      // Simple alert or notice indicating language state
+      console.log(`Idioma cambiado a: ${currentLang}`);
+    });
+  }
+}
+
+/* 5. GitHub Public Repositories Fetcher */
+async function fetchGitHubRepos() {
+  const reposContainer = document.getElementById('repos-container');
+  const legacyReposDiv = document.getElementById('repos') || document.getElementById('repo-list');
+
+  if (!reposContainer && !legacyReposDiv) return;
+
+  try {
+    const response = await fetch('https://api.github.com/users/Kboxhubia/repos?sort=updated&per_page=6');
+    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+
+    const repos = await response.json();
+
+    if (reposContainer) {
+      if (!repos || repos.length === 0) {
+        reposContainer.innerHTML = '<p class="text-dim">No se encontraron repositorios públicos.</p>';
+        return;
+      }
+
+      reposContainer.innerHTML = repos.map(repo => `
+        <article class="repo-card">
+          <h4 class="repo-title">
+            <a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a>
+          </h4>
+          <p class="repo-desc">${repo.description || 'Repositorio público de Kboxhubia.'}</p>
+          <div class="repo-meta">
+            <span>⚡ ${repo.language || 'Code'}</span>
+            <span>⭐ ${repo.stargazers_count}</span>
+            <span>🍴 ${repo.forks_count}</span>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    if (legacyReposDiv) {
+      legacyReposDiv.innerHTML = reposContainer ? reposContainer.innerHTML : 'Repositorios cargados.';
+    }
+
+  } catch (error) {
+    console.warn('Error fetching GitHub repos:', error);
+    if (reposContainer) {
+      reposContainer.innerHTML = `
+        <div class="repo-card" style="grid-column: 1 / -1;">
+          <h4 class="repo-title"><a href="https://github.com/Kboxhubia" target="_blank">Kboxhubia Repositories</a></h4>
+          <p class="repo-desc">Visite directamente el perfil de GitHub para explorar todos los repositorios y códigos fuente.</p>
+          <div class="repo-meta">
+            <span>GitHub Profile</span>
+            <span>@Kboxhubia</span>
+          </div>
+        </div>
+      `;
+    }
+  }
+}
