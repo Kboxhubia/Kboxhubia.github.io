@@ -90,6 +90,18 @@
     </div>
   </footer>
 
-  <script src="/assets/js/main.js"></script>
+  <script>
+    // Strict Guard Script for Admin Panel Access
+    (function checkAdminAccess() {
+      const isLoggedSession = sessionStorage.getItem('kbox_admin_logged') === 'true';
+      const isLoggedLocal = localStorage.getItem('kbox_admin_logged') === 'true';
+
+      if (!isLoggedSession && !isLoggedLocal) {
+        alert('⛔ Acceso no autorizado: Debe registrarse e iniciar sesión en el modal de Admin de la página principal antes de ingresar al panel.');
+        window.location.href = 'index.html#adminAuthModal';
+      }
+    })();
+  </script>
+  <script src="./assets/js/main.js"></script>
 </body>
 </html>

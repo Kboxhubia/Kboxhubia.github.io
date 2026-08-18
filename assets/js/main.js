@@ -411,8 +411,86 @@ function toggleAdminModal(show) {
   else modal.classList.remove('open');
 }
 
-function simulateAuthLogin(provider) {
-  alert(`Iniciando autenticación con ${provider}...\nSe enviará una notificación a huboxhubia@gmail.com con el registro de acceso.`);
+async function handleAdminLoginSubmit(e) {
+  e.preventDefault();
+  const name = document.getElementById('adminName').value;
+  const email = document.getElementById('adminEmail').value;
+  const key = document.getElementById('adminKey').value;
+  const errBox = document.getElementById('adminAuthError');
+  const submitBtn = document.getElementById('adminSubmitBtn');
+
+  if (!name || !email || !key) {
+    if (errBox) {
+      errBox.textContent = '❌ Todos los campos son obligatorios. Debe registrarse antes de ingresar.';
+      errBox.classList.remove('hidden');
+    }
+    return;
+  }
+
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Verificando Registro & Clave... 🔒';
+  }
+
+  // Mandatory admin token / authorization key requirement (e.g. 'kbox2026' or 'admin123')
+  const VALID_KEYS = ['kbox2026', 'admin123', 'jorgehuerta', 'huboxhubia'];
+
+  if (!VALID_KEYS.includes(key.trim().toLowerCase())) {
+    // Dispatch security failure alert to huboxhubia@gmail.com
+    try {
+      await fetch('https://formspree.io/f/xbjnqpyz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          subject: `🚨 [ALERTA SEGURIDAD ADMIN] Intento fallido de acceso`,
+          destination: 'huboxhubia@gmail.com',
+          intento_nombre: name,
+          intento_correo: email,
+          clave_ingresada: key,
+          estado: 'ACCESO DENEGADO - CLAVE INCORRECTA',
+          timestamp: new Date().toISOString()
+        })
+      });
+    } catch (err) {
+      console.warn('Security alert dispatch executed:', err);
+    }
+
+    if (errBox) {
+      errBox.textContent = '⛔ Acceso denegado. Clave de acceso no válida o usuario no registrado. Se ha notificado la alerta a huboxhubia@gmail.com.';
+      errBox.classList.remove('hidden');
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Registrar Acceso & Validar Clave 🔐';
+    }
+    return;
+  }
+
+  // Access Granted: Dispatch successful login notification to huboxhubia@gmail.com
+  try {
+    await fetch('https://formspree.io/f/xbjnqpyz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject: `✅ [ACCESO ADMIN AUTORIZADO] Inicio de sesión exitoso`,
+        destination: 'huboxhubia@gmail.com',
+        admin_nombre: name,
+        admin_correo: email,
+        estado: 'ACCESO PERMITIDO Y REGISTRADO',
+        timestamp: new Date().toISOString()
+      })
+    });
+  } catch (err) {
+    console.warn('Admin notification dispatch executed:', err);
+  }
+
+  // Save session token in sessionStorage & localStorage
+  sessionStorage.setItem('kbox_admin_logged', 'true');
+  sessionStorage.setItem('kbox_admin_user', email);
+  localStorage.setItem('kbox_admin_logged', 'true');
+
+  alert(`¡Bienvenido ${name}! Autenticación y registro verificados exitosamente. Accediendo al panel de administración.`);
   window.location.href = 'admin.html';
 }
 
