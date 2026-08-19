@@ -64,3 +64,5 @@ Los agentes deben mantener el estándar MCP para la conexión segura con los ser
 
 * **[Regla 001]**: Estructura One-Page para la landing principal, integrando perfil profesional completo, proyectos estrella (estilo 77oaking) y catálogo ampliado de servicios DeepTech.
 * **[Regla 002]**: Inclusión explícita de stack tecnológico especializado (Python, C++, Rust, Go, FastAPI, DevSecOps, Linux Debian, herramientas AI agentic).
+* **[Regla 003]**: **Idioma Español Obligatorio**: TODAS las respuestas, reportes, informes ejecutivos, estados y comunicaciones emitidos por Jules deben ser estrictamente en idioma español, en lenguaje claro, transparente y accesible.
+* **[Regla 004]**: **Español por Defecto & Traducción Completa al 100%**: El Portal Web debe cargar siempre en idioma español por defecto, y el botón alternador de idioma (ES / EN) debe traducir de forma fluida la totalidad de la aplicación web, incluyendo botones, modales, cotizadores y secciones.

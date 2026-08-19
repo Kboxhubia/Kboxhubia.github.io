@@ -24,10 +24,11 @@
       <nav class="nav" id="main-nav">
         <a href="#inicio" class="nav-link active">Inicio</a>
         <a href="#perfil" class="nav-link">Perfil</a>
-        <a href="#stack" class="nav-link">Stack & Tech</a>
-        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#servicios" class="nav-link">Servicios & Arch</a>
+        <a href="#cotizador-ia" class="nav-link">Cotizador IA</a>
+        <a href="#simulador-roi" class="nav-link">Simulador ROI</a>
+        <a href="#terminal-kbox" class="nav-link">Kbox OS</a>
         <a href="#proyectos" class="nav-link">Proyectos</a>
-        <a href="#mcp-agentes" class="nav-link">Agentes & MCP</a>
         <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
 
@@ -191,8 +192,230 @@
       </div>
     </section>
 
+    <!-- AI Quotation & Technical Proposal Engine with Mermaid Architecture Diagrams (Idea #1) -->
+    <section class="section" id="cotizador-ia">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="quoteEyebrow">Motor Cognitivo & Cotizador</span>
+          <h2 data-i18n="quoteTitle">Cotizador de Servicios & Generador de Propuesta Técnica IA</h2>
+          <p class="section-lead" data-i18n="quoteLead">
+            Seleccione el servicio o describa su proyecto. Nuestra IA generará la arquitectura recomendada, el diagrama UML/Mermaid y la propuesta comercial formal enviada a su correo.
+          </p>
+        </div>
+
+        <div class="quotation-grid">
+          <div class="quotation-form-card">
+            <h3 data-i18n="quoteConfigTitle">Configurar Propuesta & Cotización</h3>
+            <form id="quoteForm" onsubmit="generateTechnicalQuote(event)">
+              <div class="form-group">
+                <label for="quoteService" data-i18n="lblSelectService">Seleccione Servicio Core</label>
+                <select id="quoteService" required onchange="updateQuoteDefaults()">
+                  <option value="Agentes Multinivel C2C" data-i18n="optAgentService">Enjambre de Agentes Multinivel & MCP (Python / FastAPI)</option>
+                  <option value="Backend DeepTech" data-i18n="optBackendService">Backend de Alto Rendimiento (Rust / C++ / Go)</option>
+                  <option value="DevSecOps & Linux Debian" data-i18n="optDevOpsService">DevSecOps, Hardening Debian & Datacenter</option>
+                  <option value="RAG Cognitivo & DB Vectorial" data-i18n="optRagService">RAG Cognitivo, Neon Postgres & Supabase Storage</option>
+                  <option value="Telecom & Redes" data-i18n="optTelecomService">Arquitectura de Redes Telecom & Ultra Baja Latencia</option>
+                </select>
+              </div>
+
+              <div class="form-row-grid">
+                <div class="form-group">
+                  <label for="quoteScale" data-i18n="lblScale">Escala del Proyecto</label>
+                  <select id="quoteScale">
+                    <option value="Startup / MVP" data-i18n="optScaleMvp">Startup / MVP Acelerado (1-3 Semanas)</option>
+                    <option value="Empresa / Enterprise" selected data-i18n="optScaleEnterprise">Enterprise / Alta Disponibilidad (1-2 Meses)</option>
+                    <option value="Misión Crítica" data-i18n="optScaleCritical">Misión Crítica / Escala Global (&gt; 3 Meses)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="quoteUsers" data-i18n="lblUsersReq">Usuarios o Peticiones Estimadas</label>
+                  <input type="text" id="quoteUsers" placeholder="Ej. 50,000 req/min" value="100,000 req/min">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="quoteClientEmail" data-i18n="lblEmailPdf">Su Correo para Recibir la Propuesta PDF</label>
+                <input type="email" id="quoteClientEmail" placeholder="cliente@empresa.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="quoteDetails" data-i18n="lblExtraDetails">Especificaciones Técnicas Adicionales</label>
+                <textarea id="quoteDetails" rows="3" placeholder="Requerimientos específicos de integración, modelos LLM, bases de datos o redes..."></textarea>
+              </div>
+
+              <button type="submit" class="btn primary full-width glow-action-btn" id="generateQuoteBtn" data-i18n="btnGenerateQuote">Generar Propuesta Técnica + Diagrama IA ⚡</button>
+            </form>
+          </div>
+
+          <div class="quotation-result-card">
+            <h3 data-i18n="quoteResultTitle">Vista Previa de Propuesta & Diagrama de Arquitectura</h3>
+            <div id="quoteOutputPlaceholder" class="quote-placeholder">
+              <span class="placeholder-icon">📐</span>
+              <p data-i18n="quotePlaceholderTxt">Configure los parámetros a la izquierda y presione <strong>Generar Propuesta</strong> para visualizar el desglose técnico y diagrama Mermaid generado por IA.</p>
+            </div>
+
+            <div id="quoteOutputContainer" class="quote-output hidden">
+              <div class="quote-header-summary">
+                <h4 id="resQuoteTitle">Propuesta Técnica DeepTech</h4>
+                <span class="badge-price" id="resQuotePrice">$0.00 USD</span>
+              </div>
+              <p id="resQuoteDesc" class="quote-text-body"></p>
+
+              <!-- Idea #1: Mermaid Diagram Render Canvas -->
+              <div class="mermaid-box">
+                <div class="mermaid-title" data-i18n="mermaidDiagramTitle">📊 Diagrama de Arquitectura Sugerido (Mermaid)</div>
+                <pre id="mermaidDiagramPre" class="mermaid-code"></pre>
+              </div>
+
+              <div class="quote-actions">
+                <button class="btn secondary sm" onclick="downloadQuotePDF()" data-i18n="btnDownloadPdf">📄 Descargar Resumen PDF</button>
+                <button class="btn primary sm" onclick="dispatchExecutiveReport()" data-i18n="btnSendReport">✉️ Enviar Informe Ejecutivo a Gmail</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROI & Latency Reduction Simulator (Idea #2) -->
+    <section class="section alt" id="simulador-roi">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="roiEyebrow">Simulador de Impacto</span>
+          <h2 data-i18n="roiTitle">Calculadora de ROI & Reducción de Latencia DeepTech</h2>
+          <p class="section-lead" data-i18n="roiLead">
+            Simule el ahorro económico y la optimización en tiempos de respuesta al migrar a arquitectura nativa (Rust, C++, Go) e infraestructura optimizada.
+          </p>
+        </div>
+
+        <div class="roi-calculator-box">
+          <div class="form-row-grid">
+            <div class="form-group">
+              <label data-i18n="lblRoiRequests">Volumen Mensual de Solicitudes (Peticiones)</label>
+              <input type="number" id="roiRequests" value="5000000" oninput="calculateROI()">
+            </div>
+            <div class="form-group">
+              <label data-i18n="lblRoiLatency">Latencia Actual del Servidor (ms)</label>
+              <input type="number" id="roiLatency" value="450" oninput="calculateROI()">
+            </div>
+            <div class="form-group">
+              <label data-i18n="lblRoiCloudCost">Gasto Actual en Servidores / Cloud ($USD/mes)</label>
+              <input type="number" id="roiCloudCost" value="3500" oninput="calculateROI()">
+            </div>
+          </div>
+
+          <div class="roi-results-grid">
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="roiSavingsLabel">Ahorro Estimado Mensual Cloud</span>
+              <span class="roi-val text-green" id="roiSavingsVal">$2,450 / mes</span>
+              <small data-i18n="roiSavingsSub">Optimización de memoria y CPU (-70% infraestructura)</small>
+            </div>
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="roiLatencyLabel">Nueva Latencia Nativa DeepTech</span>
+              <span class="roi-val text-cyan" id="roiLatencyVal">18 ms</span>
+              <small data-i18n="roiLatencySub">Aceleración de respuesta (&gt;95% más rápido)</small>
+            </div>
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="roiRatioLabel">Retorno de Inversión (ROI)</span>
+              <span class="roi-val text-gold" id="roiRatioVal">380%</span>
+              <small data-i18n="roiRatioSub">Recuperación estimada en menos de 2.5 meses</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Terminal Kbox OS Console (Idea #6) -->
+    <section class="section" id="terminal-kbox">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="termEyebrow">Consola de Ingenieros</span>
+          <h2 data-i18n="termTitle">Modo Terminal Interactivo — Kbox OS</h2>
+          <p class="section-lead" data-i18n="termLead">
+            Para desarrolladores e ingenieros de infraestructura. Ejecute comandos directos en nuestra shell simulada.
+          </p>
+        </div>
+
+        <div class="kbox-terminal-wrapper">
+          <div class="kbox-terminal-header">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="terminal-title">kbox-os v2026.4 — DeepTech Agent Shell</span>
+          </div>
+          <div class="kbox-terminal-screen" id="terminalScreen">
+            <p class="text-dim" data-i18n="termHelpTxt">Escriba <span class="text-green">help</span> para ver la lista de comandos disponibles (ej. <span class="text-green">status</span>, <span class="text-green">stack</span>, <span class="text-green">quote</span>, <span class="text-green">clear</span>).</p>
+            <div id="terminalHistory"></div>
+            <div class="terminal-input-line">
+              <span class="prompt">guest@kbox-os:~$</span>
+              <input type="text" id="terminalInput" autofocus autocomplete="off" onkeydown="handleTerminalCommand(event)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secure Architecture Whitepapers Downloads (Idea #3) -->
+    <section class="section alt" id="whitepapers">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="wpEyebrow">Documentación Técnica</span>
+          <h2 data-i18n="wpTitle">Descarga de Whitepapers & Arquitecturas de Referencia</h2>
+          <p class="section-lead" data-i18n="wpLead">
+            Documentos exclusivos de arquitectura para ingenieros y directores de tecnología.
+          </p>
+        </div>
+
+        <div class="whitepapers-grid">
+          <div class="paper-card">
+            <span class="paper-badge" data-i18n="wpBadge1">PDF Técnico</span>
+            <h4 data-i18n="wpPaperTitle1">Orquestación C2C de Agentes Multinivel con MCP</h4>
+            <p data-i18n="wpPaperDesc1">Guía de diseño para enjambres de agentes autónomos con memoria persistente en Neon Postgres.</p>
+            <button class="btn secondary sm" onclick="triggerPaperDownload('Orquestación C2C Agentes MCP')" data-i18n="btnRequestDownload">📥 Solicitar Descarga Segura</button>
+          </div>
+          <div class="paper-card">
+            <span class="paper-badge" data-i18n="wpBadge2">Blueprint DevSecOps</span>
+            <h4 data-i18n="wpPaperTitle2">Hardening de Servidores Linux Debian & Datacenters</h4>
+            <p data-i18n="wpPaperDesc2">Estándares de seguridad corporativa, aislamiento de procesos en C++ / Rust y pipelines CI/CD.</p>
+            <button class="btn secondary sm" onclick="triggerPaperDownload('Hardening Linux Debian')" data-i18n="btnRequestDownload">📥 Solicitar Descarga Segura</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Client Project Tracker / Linear Sync (Idea #5) -->
+    <section class="section" id="tracking-proyectos">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="trackEyebrow">Portal de Clientes</span>
+          <h2 data-i18n="trackTitle">Sincronización & Estado de Proyectos (Linear MCP)</h2>
+          <p class="section-lead" data-i18n="trackLead">
+            Consulte en tiempo real el progreso de los desarrollos asignados mediante nuestra integración con Linear.
+          </p>
+        </div>
+
+        <div class="linear-tracker-box">
+          <div class="tracker-search-row">
+            <input type="text" id="linearTicketId" placeholder="Ingrese su ID de Proyecto / Ticket (Ej. KBOX-102)" value="KBOX-102">
+            <button class="btn primary" onclick="queryProjectStatus()" data-i18n="btnQueryStatus">Consultar Estado en Tiempo Real 🔄</button>
+          </div>
+
+          <div id="linearProjectResult" class="linear-result-card">
+            <div class="linear-ticket-header">
+              <span class="ticket-id">KBOX-102</span>
+              <span class="ticket-status in-progress" data-i18n="ticketStatusInProgress">● En Desarrollo (Sprints Activos)</span>
+            </div>
+            <h4 data-i18n="ticketTitleSample">Implementación de Servidores MCP & Base Vectorial Neon</h4>
+            <p class="ticket-desc" data-i18n="ticketDescSample">Fase 2 de 3: Indexación de embeddings, conexión con Supabase Storage y pruebas de latencia en Render.</p>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width: 75%;"></div>
+            </div>
+            <small class="text-dim" data-i18n="ticketMetaSample">Última actualización sincronizada desde Linear MCP hace 5 minutos.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- DeepTech Tech Stack & Ecosystem -->
-    <section class="section" id="stack">
+    <section class="section alt" id="stack">
       <div class="container">
         <div class="section-header">
           <span class="eyebrow">Tecnologías & Herramientas</span>
