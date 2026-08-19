@@ -2,173 +2,1121 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Jorge Huerta — Arquitecto de Soluciones IA | Kboxhubia</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <meta name="description" content="Arquitecto de soluciones en Inteligencia Artificial, agentes multinivel, prompt engineering y MCPs.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ing. Jorge Huerta — Arquitecto de Soluciones IA, Agentes Multinivel & DeepTech | Kboxhubia</title>
+  <meta name="description" content="Perfil profesional del Ing. Jorge Huerta. Arquitecto de soluciones en Inteligencia Artificial, agentes multinivel, MCPs, C++, Rust, Python, Go, Telecom y DevSecOps.">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="/">Kboxhubia</a>
-      <nav class="nav">
-        <a href="/">Home</a>
-        <a href="/about.html" data-i18n="about">Sobre mí</a>
-        <a href="/services.html" data-i18n="services">Servicios</a>
-        <a href="/projects.html" data-i18n="projects">Proyectos</a>
-        <a href="/blog/index.html" data-i18n="blog">Publicaciones</a>
-        <a href="/contact.html" data-i18n="contact">Contacto</a>
-        <a href="/admin.html" class="admin">Admin</a>
+
+  <!-- Header & Navigation -->
+  <header class="site-header" id="site-header">
+    <div class="container header-container">
+      <a class="brand" href="#inicio">
+        <span class="brand-accent">&lt;</span>Kboxhubia<span class="brand-accent">/&gt;</span>
+      </a>
+
+      <nav class="nav" id="main-nav">
+        <a href="#inicio" class="nav-link active">Inicio</a>
+        <a href="#perfil" class="nav-link">Perfil</a>
+        <a href="#servicios" class="nav-link">Servicios & Arch</a>
+        <a href="#cotizador-ia" class="nav-link">Cotizador IA</a>
+        <a href="#simulador-roi" class="nav-link">Simulador ROI</a>
+        <a href="#terminal-kbox" class="nav-link">Kbox OS</a>
+        <a href="#proyectos" class="nav-link">Proyectos</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
-      <div class="lang-toggle">
-        <button id="autoLangBtn">ES / EN</button>
+
+      <div class="header-actions">
+        <button id="langToggleBtn" class="lang-btn modern-nav-btn" aria-label="Cambiar Idioma">
+          <span class="flag-icon">🇪🇸</span> <span class="lang-code text-es">ES</span> <span class="divider">|</span> <span class="flag-icon dim">🇺🇸</span> <span class="lang-code text-en dimmed">EN</span>
+        </button>
+        <button id="openVirtualCafeBtn" class="btn-virtual-cafe-nav" title="Café Virtual con Agente IA">
+          <span class="cafe-pulse">☕</span> <span data-i18n="navCafe">Café Virtual</span>
+        </button>
+        <a href="#adminAuthModal" id="adminAuthTrigger" class="btn-admin-link modern-nav-btn" title="Acceso al Panel Admin">
+          <span class="lock-icon">🔒</span> <span data-i18n="navAdmin">Admin</span>
+        </a>
+        <button class="mobile-menu-toggle" id="menuToggle" aria-label="Abrir Menú">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="hero">
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
       <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">AI Systems • Agents • Automation</span>
-          <h1>Jorge Huerta</h1>
-          <p>Arquitecto de soluciones en Inteligencia Artificial, agentes multinivel, diseño de sistemas inteligentes, MCPs, automatización empresarial y portales dinámicos con enfoque técnico y humano.</p>
+        <div class="hero-content">
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span>Disponible para Consultorías DeepTech & Arquitectura IA</span>
+          </div>
+
+          <span class="eyebrow">Ingeniería • Inteligencia Artificial • Agentes • Telecom</span>
+          <h1 class="hero-title">Ing. Jorge Huerta</h1>
+          <h2 class="hero-subtitle">
+            Arquitecto de Soluciones IA & Sistemas Agénticos Multinivel
+          </h2>
+
+          <p class="hero-description">
+            Especialista en el diseño e implementación de ecosistemas inteligentes, arquitectura de agentes autónomos, protocolos MCP (Model Context Protocol), infraestructura DeepTech, desarrollo de alto rendimiento con <strong>Python, C++, Rust, Go</strong>, entornos <strong>DevSecOps</strong> y telecomunicaciones.
+          </p>
+
           <div class="cta-row">
-            <a class="btn primary" href="/contact.html">Solicitar consultoría</a>
-            <a class="btn ghost" href="/projects.html">Ver portfolio</a>
-          </div>
-          <ul class="hero-metrics">
-            <li><strong>AI</strong><span>Arquitectura</span></li>
-            <li><strong>Agents</strong><span>Multinivel</span></li>
-            <li><strong>MCP</strong><span>Integración</span></li>
-          </ul>
-        </div>
-        <div class="hero-art">
-          <img src="/assets/images/portal-hero.svg" alt="Portal Kboxhubia">
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">Qué construyo</span>
-          <h2>Portales inteligentes, automatización y experiencia digital premium</h2>
-        </div>
-
-        <div class="card-grid">
-          <article class="card">
-            <span class="tag">IA</span>
-            <h3>Arquitectura inteligente</h3>
-            <p>Diseño de soluciones con agentes, workflows y automatización aplicada a negocios, contenido, servicios y operación.</p>
-          </article>
-          <article class="card">
-            <span class="tag">Agents</span>
-            <h3>Agentes multinivel</h3>
-            <p>Orquestación de agentes especialistas, coordinadores y supervisores para procesos complejos y accionables.</p>
-          </article>
-          <article class="card">
-            <span class="tag">MCP</span>
-            <h3>Integración de sistemas</h3>
-            <p>Conexión segura de herramientas, APIs, datos y servicios para crear un ecosistema operativo inteligente.</p>
-          </article>
-          <article class="card">
-            <span class="tag">Prompt</span>
-            <h3>Prompt design</h3>
-            <p>Arquitecturas de prompts, validación, loops de mejora y estrategias de trabajo con modelos avanzados.</p>
-          </article>
-          <article class="card">
-            <span class="tag">Data</span>
-            <h3>RAG y QA</h3>
-            <p>Integración de datos, recuperación contextual, validación y sistemas de calidad automatizados.</p>
-          </article>
-          <article class="card">
-            <span class="tag">Web</span>
-            <h3>Portales dinámicos</h3>
-            <p>Diseño de presencia digital moderna, portfolio, contenido editorial y bases operativas para crecimiento.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">Stack</span>
-          <h2>Plataformas, agentes y servicios digitales</h2>
-        </div>
-
-        <div class="platform-grid">
-          <div class="platform-panel">
-            <h3>Infraestructura digital</h3>
-            <ul class="feature-list">
-              <li><span>GitHub Pages</span><span class="badge">Public</span></li>
-              <li><span>GitHub Actions</span><span class="badge">Backup</span></li>
-              <li><span>Supabase</span><span class="badge">DB + Storage</span></li>
-              <li><span>Notion</span><span class="badge">CMS</span></li>
-              <li><span>Linear / Asana</span><span class="badge">Roadmap</span></li>
-            </ul>
+            <button class="btn primary glow-btn" id="startCafeHeroBtn">
+              <span>☕</span> <span data-i18n="heroBtnCafe">Agendar en Café Virtual IA</span>
+            </button>
+            <a class="btn secondary" href="#servicios" data-i18n="heroBtnServices">Ver Catálogo de Servicios</a>
+            <a class="btn outline" href="https://github.com/Kboxhubia" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub Perfil
+            </a>
           </div>
 
-          <div class="platform-panel">
-            <h3>Rama del proyecto</h3>
-            <ul class="feature-list">
-              <li><span>Portal web dinámico</span><span class="badge">Activo</span></li>
-              <li><span>Agentes personalizados</span><span class="badge">Listos</span></li>
-              <li><span>Respaldo automático</span><span class="badge">Seguridad</span></li>
-              <li><span>Subida privada</span><span class="badge">Admin</span></li>
-              <li><span>Branding y networking</span><span class="badge">LinkedIn</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">Repositorios</span>
-          <h2>GitHub y proyectos de Kboxhubia</h2>
-        </div>
-        <div id="repos" class="card-grid">Cargando repositorios...</div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="eyebrow">Portal</span>
-          <h2>Acceso a herramientas y administración</h2>
-        </div>
-        <div class="upload-panel">
-          <div>
-            <h3>Portal completo</h3>
-            <p>Este sitio funciona como presentación pública, landing del perfil técnico y centro de referencia para la evolución del proyecto.</p>
-            <div class="cta-row">
-              <a class="btn primary" href="/admin.html">Panel privado</a>
-              <a class="btn ghost" href="/contact.html">Contacto</a>
+          <div class="hero-metrics-grid">
+            <div class="metric-card">
+              <span class="metric-value">Multi-Agent</span>
+              <span class="metric-label">Orquestación C2C & Supervisor</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">MCP Native</span>
+              <span class="metric-label">Integración Segura de APIs</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">DeepTech</span>
+              <span class="metric-label">Python, C++, Rust, Go, Debian</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-value">DevSecOps</span>
+              <span class="metric-label">Datacenter & CI/CD Pipelines</span>
             </div>
           </div>
-          <div class="upload-summary">
-            <p><strong>Estado actual</strong></p>
-            <ul>
-              <li>Respaldo diario configurado</li>
-              <li>Agentes creados y documentados</li>
-              <li>Diseño profesional en marcha</li>
-              <li>Integraciones previstas con Supabase y Notion</li>
+        </div>
+
+        <div class="hero-art-container">
+          <div class="terminal-card">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="terminal-title">kboxhubia@architect:~</span>
+            </div>
+            <div class="terminal-body">
+              <p><span class="prompt">$</span> systemctl status kboxhubia-ai-core</p>
+              <p class="text-green">● kboxhubia-ai-core.service - Multi-Agent Architecture Hub</p>
+              <p class="text-dim">  Loaded: loaded (/etc/systemd/system/kboxhubia.service; enabled)</p>
+              <p class="text-dim">  Active: <span class="text-green">active (running)</span> since DeepTech Init</p>
+              <p><span class="prompt">$</span> kboxhubia-agent --list-stack</p>
+              <p class="text-cyan">&gt; Languages: [Python, C++, Rust, Go]</p>
+              <p class="text-cyan">&gt; Frameworks: [FastAPI, Node.js, REST, Microservices]</p>
+              <p class="text-cyan">&gt; AI Agent Tools: [Claude Code, Cursor, Lovable, Kimi, Antigravity, OpenCode]</p>
+              <p class="text-cyan">&gt; Infra & Security: [Linux Debian, Datacenters, DevSecOps, GitHub Actions]</p>
+              <p class="typing"><span class="prompt">$</span> execute --goal "Empower Next-Gen Digital Ecosystems" <span class="cursor">_</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Profile Section -->
+    <section class="section alt" id="perfil">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Sobre Mí & Trayectoria</span>
+          <h2>Perfil Profesional</h2>
+          <p class="section-lead">
+            Combinando el rigor técnico de la Ingeniería en Telecomunicaciones con la innovación de vanguardia en Inteligencia Artificial y la cultura DevSecOps.
+          </p>
+        </div>
+
+        <div class="profile-grid">
+          <div class="profile-main-card">
+            <div class="profile-header-meta">
+              <div class="profile-avatar-placeholder">
+                <span>JH</span>
+              </div>
+              <div>
+                <h3>Ing. Jorge Huerta</h3>
+                <p class="profile-role">Arquitecto de Soluciones IA & Consultor DeepTech</p>
+                <div class="social-tags">
+                  <a href="https://www.linkedin.com/in/jorgehuertatelecom" target="_blank" rel="noopener" class="badge-link">
+                    LinkedIn: /in/jorgehuertatelecom
+                  </a>
+                  <a href="https://kboxhubia.github.io/" target="_blank" rel="noopener" class="badge-link">
+                    Site: kboxhubia.github.io
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-bio">
+              <p>
+                Soy un profesional apasionado por el diseño de sistemas digitales resilientes, altamente automatizados e inteligentes. Como <strong>Ingeniero de Telecomunicaciones y Arquitecto de Soluciones IA</strong>, me especializo en construir puentes entre la infraestructura de bajo nivel (redes, datacenters, sistemas Linux Debian, código nativo en C++ / Rust / Go) y la capa más avanzada de abstracción agéntica (LLMs, agentes orquestados, RAG y protocolos MCP).
+              </p>
+              <p>
+                Mi visión está centrada en soluciones de <strong>alto impacto funcional y valor de negocio</strong>: desde la automatización empresarial mediante enjambres de agentes autónomos multinivel, hasta la seguridad y despliegue continuo (DevSecOps) en la nube y en entornos de misión crítica.
+              </p>
+            </div>
+
+            <div class="pillars-grid">
+              <div class="pillar-item">
+                <div class="pillar-icon">🧠</div>
+                <h4>Pensamiento Agéntico</h4>
+                <p>Diseño de agentes especialistas con roles de ejecución, supervisión, validación en bucle y toma de decisiones contextual.</p>
+              </div>
+              <div class="pillar-item">
+                <div class="pillar-icon">⚡</div>
+                <h4>Rendimiento DeepTech</h4>
+                <p>Desarrollo de microservicios e infraestructura de alta velocidad utilizando Python, C++, Rust y Go.</p>
+              </div>
+              <div class="pillar-item">
+                <div class="pillar-icon">🔒</div>
+                <h4>Ciberseguridad & DevSecOps</h4>
+                <p>Integración de seguridad desde la fase cero del desarrollo, automatización CI/CD y despliegue robusto en Linux Debian.</p>
+              </div>
+              <div class="pillar-item">
+                <div class="pillar-icon">🌐</div>
+                <h4>Telecom & Datacenters</h4>
+                <p>Conocimiento profundo de redes de comunicaciones, latencia, topología de datos y arquitectura de sistemas distribuidos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Quotation & Technical Proposal Engine with Mermaid Architecture Diagrams (Idea #1) -->
+    <section class="section" id="cotizador-ia">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="quoteEyebrow">Motor Cognitivo & Cotizador</span>
+          <h2 data-i18n="quoteTitle">Cotizador de Servicios & Generador de Propuesta Técnica IA</h2>
+          <p class="section-lead" data-i18n="quoteLead">
+            Seleccione el servicio o describa su proyecto. Nuestra IA generará la arquitectura recomendada, el diagrama UML/Mermaid y la propuesta comercial formal enviada a su correo.
+          </p>
+        </div>
+
+        <div class="quotation-grid">
+          <div class="quotation-form-card">
+            <h3 data-i18n="quoteConfigTitle">Configurar Propuesta & Cotización</h3>
+            <form id="quoteForm" onsubmit="generateTechnicalQuote(event)">
+              <div class="form-group">
+                <label for="quoteService" data-i18n="lblSelectService">Seleccione Servicio Core</label>
+                <select id="quoteService" required onchange="updateQuoteDefaults()">
+                  <option value="Agentes Multinivel C2C" data-i18n="optAgentService">Enjambre de Agentes Multinivel & MCP (Python / FastAPI)</option>
+                  <option value="Backend DeepTech" data-i18n="optBackendService">Backend de Alto Rendimiento (Rust / C++ / Go)</option>
+                  <option value="DevSecOps & Linux Debian" data-i18n="optDevOpsService">DevSecOps, Hardening Debian & Datacenter</option>
+                  <option value="RAG Cognitivo & DB Vectorial" data-i18n="optRagService">RAG Cognitivo, Neon Postgres & Supabase Storage</option>
+                  <option value="Telecom & Redes" data-i18n="optTelecomService">Arquitectura de Redes Telecom & Ultra Baja Latencia</option>
+                </select>
+              </div>
+
+              <div class="form-row-grid">
+                <div class="form-group">
+                  <label for="quoteScale" data-i18n="lblScale">Escala del Proyecto</label>
+                  <select id="quoteScale">
+                    <option value="Startup / MVP" data-i18n="optScaleMvp">Startup / MVP Acelerado (1-3 Semanas)</option>
+                    <option value="Empresa / Enterprise" selected data-i18n="optScaleEnterprise">Enterprise / Alta Disponibilidad (1-2 Meses)</option>
+                    <option value="Misión Crítica" data-i18n="optScaleCritical">Misión Crítica / Escala Global (&gt; 3 Meses)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="quoteUsers" data-i18n="lblUsersReq">Usuarios o Peticiones Estimadas</label>
+                  <input type="text" id="quoteUsers" placeholder="Ej. 50,000 req/min" value="100,000 req/min">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="quoteClientEmail" data-i18n="lblEmailPdf">Su Correo para Recibir la Propuesta PDF</label>
+                <input type="email" id="quoteClientEmail" placeholder="cliente@empresa.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="quoteDetails" data-i18n="lblExtraDetails">Especificaciones Técnicas Adicionales</label>
+                <textarea id="quoteDetails" rows="3" placeholder="Requerimientos específicos de integración, modelos LLM, bases de datos o redes..."></textarea>
+              </div>
+
+              <button type="submit" class="btn primary full-width glow-action-btn" id="generateQuoteBtn" data-i18n="btnGenerateQuote">Generar Propuesta Técnica + Diagrama IA ⚡</button>
+            </form>
+          </div>
+
+          <div class="quotation-result-card">
+            <h3 data-i18n="quoteResultTitle">Vista Previa de Propuesta & Diagrama de Arquitectura</h3>
+            <div id="quoteOutputPlaceholder" class="quote-placeholder">
+              <span class="placeholder-icon">📐</span>
+              <p data-i18n="quotePlaceholderTxt">Configure los parámetros a la izquierda y presione <strong>Generar Propuesta</strong> para visualizar el desglose técnico y diagrama Mermaid generado por IA.</p>
+            </div>
+
+            <div id="quoteOutputContainer" class="quote-output hidden">
+              <div class="quote-header-summary">
+                <h4 id="resQuoteTitle">Propuesta Técnica DeepTech</h4>
+                <span class="badge-price" id="resQuotePrice">$0.00 USD</span>
+              </div>
+              <p id="resQuoteDesc" class="quote-text-body"></p>
+
+              <!-- Idea #1: Mermaid Diagram Render Canvas -->
+              <div class="mermaid-box">
+                <div class="mermaid-title" data-i18n="mermaidDiagramTitle">📊 Diagrama de Arquitectura Sugerido (Mermaid)</div>
+                <pre id="mermaidDiagramPre" class="mermaid-code"></pre>
+              </div>
+
+              <div class="quote-actions">
+                <button class="btn secondary sm" onclick="downloadQuotePDF()" data-i18n="btnDownloadPdf">📄 Descargar Resumen PDF</button>
+                <button class="btn primary sm" onclick="dispatchExecutiveReport()" data-i18n="btnSendReport">✉️ Enviar Informe Ejecutivo a Gmail</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROI & Latency Reduction Simulator (Idea #2) -->
+    <section class="section alt" id="simulador-roi">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="roiEyebrow">Simulador de Impacto</span>
+          <h2 data-i18n="roiTitle">Calculadora de ROI & Reducción de Latencia DeepTech</h2>
+          <p class="section-lead" data-i18n="roiLead">
+            Simule el ahorro económico y la optimización en tiempos de respuesta al migrar a arquitectura nativa (Rust, C++, Go) e infraestructura optimizada.
+          </p>
+        </div>
+
+        <div class="roi-calculator-box">
+          <div class="form-row-grid">
+            <div class="form-group">
+              <label data-i18n="lblRoiRequests">Volumen Mensual de Solicitudes (Peticiones)</label>
+              <input type="number" id="roiRequests" value="5000000" oninput="calculateROI()">
+            </div>
+            <div class="form-group">
+              <label data-i18n="lblRoiLatency">Latencia Actual del Servidor (ms)</label>
+              <input type="number" id="roiLatency" value="450" oninput="calculateROI()">
+            </div>
+            <div class="form-group">
+              <label data-i18n="lblRoiCloudCost">Gasto Actual en Servidores / Cloud ($USD/mes)</label>
+              <input type="number" id="roiCloudCost" value="3500" oninput="calculateROI()">
+            </div>
+          </div>
+
+          <div class="roi-results-grid">
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="roiSavingsLabel">Ahorro Estimado Mensual Cloud</span>
+              <span class="roi-val text-green" id="roiSavingsVal">$2,450 / mes</span>
+              <small data-i18n="roiSavingsSub">Optimización de memoria y CPU (-70% infraestructura)</small>
+            </div>
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="roiLatencyLabel">Nueva Latencia Nativa DeepTech</span>
+              <span class="roi-val text-cyan" id="roiLatencyVal">18 ms</span>
+              <small data-i18n="roiLatencySub">Aceleración de respuesta (&gt;95% más rápido)</small>
+            </div>
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="roiRatioLabel">Retorno de Inversión (ROI)</span>
+              <span class="roi-val text-gold" id="roiRatioVal">380%</span>
+              <small data-i18n="roiRatioSub">Recuperación estimada en menos de 2.5 meses</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Terminal Kbox OS Console (Idea #6) -->
+    <section class="section" id="terminal-kbox">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="termEyebrow">Consola de Ingenieros</span>
+          <h2 data-i18n="termTitle">Modo Terminal Interactivo — Kbox OS</h2>
+          <p class="section-lead" data-i18n="termLead">
+            Para desarrolladores e ingenieros de infraestructura. Ejecute comandos directos en nuestra shell simulada.
+          </p>
+        </div>
+
+        <div class="kbox-terminal-wrapper">
+          <div class="kbox-terminal-header">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="terminal-title">kbox-os v2026.4 — DeepTech Agent Shell</span>
+          </div>
+          <div class="kbox-terminal-screen" id="terminalScreen">
+            <p class="text-dim" data-i18n="termHelpTxt">Escriba <span class="text-green">help</span> para ver la lista de comandos disponibles (ej. <span class="text-green">status</span>, <span class="text-green">stack</span>, <span class="text-green">quote</span>, <span class="text-green">clear</span>).</p>
+            <div id="terminalHistory"></div>
+            <div class="terminal-input-line">
+              <span class="prompt">guest@kbox-os:~$</span>
+              <input type="text" id="terminalInput" autofocus autocomplete="off" onkeydown="handleTerminalCommand(event)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secure Architecture Whitepapers Downloads (Idea #3) -->
+    <section class="section alt" id="whitepapers">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="wpEyebrow">Documentación Técnica</span>
+          <h2 data-i18n="wpTitle">Descarga de Whitepapers & Arquitecturas de Referencia</h2>
+          <p class="section-lead" data-i18n="wpLead">
+            Documentos exclusivos de arquitectura para ingenieros y directores de tecnología.
+          </p>
+        </div>
+
+        <div class="whitepapers-grid">
+          <div class="paper-card">
+            <span class="paper-badge" data-i18n="wpBadge1">PDF Técnico</span>
+            <h4 data-i18n="wpPaperTitle1">Orquestación C2C de Agentes Multinivel con MCP</h4>
+            <p data-i18n="wpPaperDesc1">Guía de diseño para enjambres de agentes autónomos con memoria persistente en Neon Postgres.</p>
+            <button class="btn secondary sm" onclick="triggerPaperDownload('Orquestación C2C Agentes MCP')" data-i18n="btnRequestDownload">📥 Solicitar Descarga Segura</button>
+          </div>
+          <div class="paper-card">
+            <span class="paper-badge" data-i18n="wpBadge2">Blueprint DevSecOps</span>
+            <h4 data-i18n="wpPaperTitle2">Hardening de Servidores Linux Debian & Datacenters</h4>
+            <p data-i18n="wpPaperDesc2">Estándares de seguridad corporativa, aislamiento de procesos en C++ / Rust y pipelines CI/CD.</p>
+            <button class="btn secondary sm" onclick="triggerPaperDownload('Hardening Linux Debian')" data-i18n="btnRequestDownload">📥 Solicitar Descarga Segura</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Client Project Tracker / Linear Sync (Idea #5) -->
+    <section class="section" id="tracking-proyectos">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="trackEyebrow">Portal de Clientes</span>
+          <h2 data-i18n="trackTitle">Sincronización & Estado de Proyectos (Linear MCP)</h2>
+          <p class="section-lead" data-i18n="trackLead">
+            Consulte en tiempo real el progreso de los desarrollos asignados mediante nuestra integración con Linear.
+          </p>
+        </div>
+
+        <div class="linear-tracker-box">
+          <div class="tracker-search-row">
+            <input type="text" id="linearTicketId" placeholder="Ingrese su ID de Proyecto / Ticket (Ej. KBOX-102)" value="KBOX-102">
+            <button class="btn primary" onclick="queryProjectStatus()" data-i18n="btnQueryStatus">Consultar Estado en Tiempo Real 🔄</button>
+          </div>
+
+          <div id="linearProjectResult" class="linear-result-card">
+            <div class="linear-ticket-header">
+              <span class="ticket-id">KBOX-102</span>
+              <span class="ticket-status in-progress" data-i18n="ticketStatusInProgress">● En Desarrollo (Sprints Activos)</span>
+            </div>
+            <h4 data-i18n="ticketTitleSample">Implementación de Servidores MCP & Base Vectorial Neon</h4>
+            <p class="ticket-desc" data-i18n="ticketDescSample">Fase 2 de 3: Indexación de embeddings, conexión con Supabase Storage y pruebas de latencia en Render.</p>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" style="width: 75%;"></div>
+            </div>
+            <small class="text-dim" data-i18n="ticketMetaSample">Última actualización sincronizada desde Linear MCP hace 5 minutos.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DeepTech Tech Stack & Ecosystem -->
+    <section class="section alt" id="stack">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Tecnologías & Herramientas</span>
+          <h2>Ecosistema & Stack Tecnológico</h2>
+          <p class="section-lead">
+            Dominio integral de lenguajes de programación core, frameworks backend, herramientas de desarrollo asistido por IA e infraestructura.
+          </p>
+        </div>
+
+        <div class="stack-categories">
+
+          <!-- Lenguajes Core -->
+          <div class="stack-category-card">
+            <div class="category-header">
+              <span class="category-badge">Core Languages</span>
+              <h3>Lenguajes de Programación de Alto Nivel & Rendimiento</h3>
+            </div>
+            <div class="tech-badge-container">
+              <div class="tech-badge highlight"><span class="tech-icon">🐍</span> Python</div>
+              <div class="tech-badge highlight"><span class="tech-icon">⚡</span> C++</div>
+              <div class="tech-badge highlight"><span class="tech-icon">🦀</span> Rust</div>
+              <div class="tech-badge highlight"><span class="tech-icon">🐹</span> Go (Golang)</div>
+            </div>
+          </div>
+
+          <!-- Backend & APIs -->
+          <div class="stack-category-card">
+            <div class="category-header">
+              <span class="category-badge">Backend & Architecture</span>
+              <h3>Desarrollo Backend, APIs & Microservicios</h3>
+            </div>
+            <div class="tech-badge-container">
+              <div class="tech-badge"><span class="tech-icon">🚀</span> FastAPI</div>
+              <div class="tech-badge"><span class="tech-icon">🟢</span> Node.js</div>
+              <div class="tech-badge"><span class="tech-icon">🔌</span> REST APIs</div>
+              <div class="tech-badge"><span class="tech-icon">🏗️</span> Microservicios</div>
+              <div class="tech-badge"><span class="tech-icon">🌐</span> HTML5 & CSS3 Moderno</div>
+              <div class="tech-badge"><span class="tech-icon">📊</span> JSON / Protocol Buffers</div>
+            </div>
+          </div>
+
+          <!-- AI Agentic Ecosystem -->
+          <div class="stack-category-card">
+            <div class="category-header">
+              <span class="category-badge">AI Agentic & Tools</span>
+              <h3>Herramientas Agentic Coding & Asistentes de IA Vanguardistas</h3>
+            </div>
+            <div class="tech-badge-container">
+              <div class="tech-badge special"><span class="tech-icon">🤖</span> Claude Code</div>
+              <div class="tech-badge special"><span class="tech-icon">💻</span> Cursor</div>
+              <div class="tech-badge special"><span class="tech-icon">🎨</span> Lovable</div>
+              <div class="tech-badge special"><span class="tech-icon">🌙</span> Kimi</div>
+              <div class="tech-badge special"><span class="tech-icon">🔓</span> OpenCode</div>
+              <div class="tech-badge special"><span class="tech-icon">📜</span> Codex</div>
+              <div class="tech-badge special"><span class="tech-icon">🪐</span> Antigravity</div>
+              <div class="tech-badge special"><span class="tech-icon">🔗</span> Model Context Protocol (MCP)</div>
+            </div>
+          </div>
+
+          <!-- Infra, Cloud & Security -->
+          <div class="stack-category-card">
+            <div class="category-header">
+              <span class="category-badge">Infra & DevSecOps</span>
+              <h3>Infraestructura, Nube, Datacenters & Ciberseguridad</h3>
+            </div>
+            <div class="tech-badge-container">
+              <div class="tech-badge"><span class="tech-icon">🐧</span> Linux Debian</div>
+              <div class="tech-badge"><span class="tech-icon">⚙️</span> GitHub Actions & CI/CD</div>
+              <div class="tech-badge"><span class="tech-icon">🛡️</span> DevSecOps & Ciberseguridad</div>
+              <div class="tech-badge"><span class="tech-icon">🏢</span> Datacenters & Redes Telecom</div>
+              <div class="tech-badge"><span class="tech-icon">⚡</span> Supabase (DB & Storage)</div>
+              <div class="tech-badge"><span class="tech-icon">📝</span> Notion CMS</div>
+              <div class="tech-badge"><span class="tech-icon">☁️</span> Cloud Architecture</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section alt" id="servicios">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Oferta de Valor & Consultoría</span>
+          <h2>Servicios Especializados</h2>
+          <p class="section-lead">
+            Soluciones de ingeniería punta a punta adaptadas a empresas, startups tecnológicas y proyectos de alta complejidad.
+          </p>
+        </div>
+
+        <div class="services-grid">
+
+          <article class="service-card">
+            <div class="service-number">01</div>
+            <div class="service-tag">IA & Agentes</div>
+            <h3>Arquitectura IA & Agentes Multinivel</h3>
+            <p>
+              Diseño y orquestación de sistemas agénticos con roles definidos (Agentes especialistas, ejecutores, coordinadores y supervisores de calidad). Implementación de flujos de trabajo autónomos y toma de decisiones basadas en contexto.
+            </p>
+            <ul class="service-bullets">
+              <li>Mapeo de arquitectura agentica C2C (Coordinator to Controller)</li>
+              <li>Pipelines con memoria conversacional y loops de validación</li>
+              <li>Orquestación con frameworks modernos de IA</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-number">02</div>
+            <div class="service-tag">MCP Standard</div>
+            <h3>Integración de Protocolos MCP (Model Context Protocol)</h3>
+            <p>
+              Conexión segura y auditable entre modelos de lenguaje e infraestructura corporativa (Supabase, Notion, GitHub, Linear, Asana, APIs privadas). Permite que los agentes interactúen directamente con sus datos de negocio de manera controlada.
+            </p>
+            <ul class="service-bullets">
+              <li>Desarrollo de servidores MCP personalizados</li>
+              <li>Gestión de credenciales con mínimos privilegios</li>
+              <li>Integración de workflows automatizados entre herramientas</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-number">03</div>
+            <div class="service-tag">DeepTech Backend</div>
+            <h3>Backend de Alto Rendimiento (Python, C++, Rust, Go)</h3>
+            <p>
+              Construcción de microservicios y motores de cómputo optimizados para baja latencia, procesamiento en tiempo real y alta concurrencia. Elección del lenguaje ideal para cada subsistema crítico.
+            </p>
+            <ul class="service-bullets">
+              <li>APIs asíncronas de ultra velocidad con FastAPI y Go</li>
+              <li>Módulos nativos de alto rendimiento en C++ y Rust</li>
+              <li>Microservicios escalables e interconectados mediante REST y gRPC</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-number">04</div>
+            <div class="service-tag">Infra & Security</div>
+            <h3>DevSecOps, Linux Debian & Ciberseguridad</h3>
+            <p>
+              Implementación de prácticas de seguridad integradas en el ciclo de vida del software, automatización de integración y despliegue continuo (CI/CD) con GitHub Actions, y administración avanzada de servidores Linux Debian y Datacenters.
+            </p>
+            <ul class="service-bullets">
+              <li>Configuración y hardening de servidores Linux Debian</li>
+              <li>Pipelines CI/CD seguras con pruebas automatizadas</li>
+              <li>Protección de endpoints, gestión de identidades y secretos</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-number">05</div>
+            <div class="service-tag">Data & RAG</div>
+            <h3>Sistemas RAG Avanzados & Curación de Datos</h3>
+            <p>
+              Ingesta, vectorización y recuperación de información sensible mediante sistemas Retrieval-Augmented Generation (RAG). Garantía de precisión factual y respuesta veraz para datos técnicos y empresariales.
+            </p>
+            <ul class="service-bullets">
+              <li>Bases de datos vectoriales e indexación semántica</li>
+              <li>Sistemas de evaluación de calidad y métricas de QA</li>
+              <li>Finetuning y adaptación de modelos Open Source</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-number">06</div>
+            <div class="service-tag">Agentic AI Consulting</div>
+            <h3>Capacitación & Implementación de Agentic Coding</h3>
+            <p>
+              Asesoría técnica para acelerar el desarrollo de software incorporando herramientas como Claude Code, Cursor, Lovable, Kimi, OpenCode y Antigravity en los equipos de ingeniería, multiplicando la productividad.
+            </p>
+            <ul class="service-bullets">
+              <li>Adopción de flujos Agentic Coding en empresas</li>
+              <li>Estrategia de Prompt Engineering avanzado y reglas de desarrollo</li>
+              <li>Configuración de entornos híbridos de desarrollo asistido</li>
+            </ul>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects & Repositories Section (Inspired by 77oaking Showcase) -->
+    <section class="section" id="proyectos">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Repositorios & Proyectos Destacados</span>
+          <h2>Proyectos & Portafolio GitHub</h2>
+          <p class="section-lead">
+            Explora los repositorios públicos y desarrollos de Kboxhubia.
+          </p>
+        </div>
+
+        <!-- Featured Projects Grid (Custom Spotlight) -->
+        <div class="featured-projects-grid">
+
+          <div class="featured-card">
+            <div class="card-badge">Portal Oficial</div>
+            <h3>Kboxhubia Digital System & Landing</h3>
+            <p>Portal web estático profesional, arquitectura One-Page con integración de agentes de respaldo, workflows de GitHub Actions y compatibilidad con conectores MCP.</p>
+            <div class="card-tech-list">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>JavaScript</span>
+              <span>GitHub Pages</span>
+              <span>GitHub Actions</span>
+            </div>
+            <div class="card-footer">
+              <a href="https://github.com/Kboxhubia/Kboxhubia.github.io" target="_blank" rel="noopener" class="card-link">Ver Código en GitHub &rarr;</a>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="card-badge">Agentes & Backup</div>
+            <h3>Automated Site Backup & Agent Suite</h3>
+            <p>Sistema de resguardo automatizado con agentes especializados (`site-backup`, `portal-redesign`, `linkedin-brand`) y alertas vía ntfy.</p>
+            <div class="card-tech-list">
+              <span>Bash</span>
+              <span>GitHub Workflows</span>
+              <span>Agentes IA</span>
+              <span>Linux</span>
+            </div>
+            <div class="card-footer">
+              <a href="https://github.com/Kboxhubia" target="_blank" rel="noopener" class="card-link">Explorar Repositorio &rarr;</a>
+            </div>
+          </div>
+
+          <div class="featured-card">
+            <div class="card-badge">MCP Architecture</div>
+            <h3>Ecosistema de Conectores MCP Kboxhubia</h3>
+            <p>Integración de agentes inteligentes con Supabase, Notion, GitHub y servicios externos mediante el estándar Model Context Protocol.</p>
+            <div class="card-tech-list">
+              <span>Python</span>
+              <span>FastAPI</span>
+              <span>MCP</span>
+              <span>Supabase</span>
+              <span>Notion</span>
+            </div>
+            <div class="card-footer">
+              <a href="https://github.com/Kboxhubia" target="_blank" rel="noopener" class="card-link">Ver Proyectos MCP &rarr;</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Dynamic GitHub Repositories Container -->
+        <div class="github-repos-section">
+          <h3>Todos los repositorios públicos (<a href="https://github.com/Kboxhubia" target="_blank" rel="noopener">@Kboxhubia</a>)</h3>
+          <div id="repos-container" class="repos-grid">
+            <div class="loading-state">
+              <div class="spinner"></div>
+              <p>Conectando con la API de GitHub para cargar repositorios...</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MCP & Agentic Systems Status Section -->
+    <section class="section alt" id="mcp-agentes">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Centro de Control & Ecosistema</span>
+          <h2>Agentes Creados & Conectores MCP</h2>
+          <p class="section-lead">
+            Estructura operativa de agentes especializados y conectores de integración activa para la plataforma.
+          </p>
+        </div>
+
+        <div class="agent-panel-grid">
+
+          <div class="agent-card">
+            <div class="agent-header">
+              <span class="agent-icon">💾</span>
+              <div>
+                <h4>site-backup agent</h4>
+                <span class="agent-status active">● Activo en Workflow</span>
+              </div>
+            </div>
+            <p>Encargado del respaldo diario automatizado, generación de copias por fecha, versión latest para restauración rápida y notificación de estado.</p>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-header">
+              <span class="agent-icon">🎨</span>
+              <div>
+                <h4>portal-redesign agent</h4>
+                <span class="agent-status active">● Activo en UI/UX</span>
+              </div>
+            </div>
+            <p>Especializado en la arquitectura del portal One-Page, diseño visual DeepTech, optimización de componentes y experiencia interactiva.</p>
+          </div>
+
+          <div class="agent-card">
+            <div class="agent-header">
+              <span class="agent-icon">💼</span>
+              <div>
+                <h4>linkedin-brand agent</h4>
+                <span class="agent-status active">● Activo en Estrategia</span>
+              </div>
+            </div>
+            <p>Responsable del posicionamiento profesional en LinkedIn, estrategia de publicaciones de contenido técnico, networking y marca personal.</p>
+          </div>
+
+        </div>
+
+        <!-- MCP Connectors List -->
+        <div class="mcp-hub-box">
+          <h3>Conectores MCP Registrados</h3>
+          <div class="mcp-tags-grid">
+            <div class="mcp-item">
+              <span class="mcp-dot active"></span>
+              <strong>kboxhubia-mcp-github</strong>
+              <span>Publicación, Workflows & Repos</span>
+            </div>
+            <div class="mcp-item">
+              <span class="mcp-dot pending"></span>
+              <strong>kboxhubia-mcp-supabase</strong>
+              <span>Base de Datos & Storage Privado</span>
+            </div>
+            <div class="mcp-item">
+              <span class="mcp-dot pending"></span>
+              <strong>kboxhubia-mcp-notion</strong>
+              <span>CMS Editorial & Roadmap</span>
+            </div>
+            <div class="mcp-item">
+              <span class="mcp-dot active"></span>
+              <strong>kboxhubia-mcp-linear / asana</strong>
+              <span>Gestión de Tareas & Sprints</span>
+            </div>
+            <div class="mcp-item">
+              <span class="mcp-dot active"></span>
+              <strong>kboxhubia-mcp-fireworks</strong>
+              <span>Inferencia de Modelos IA</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact & Social Section -->
+    <section class="section" id="contacto">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Contacto & Networking</span>
+          <h2>Iniciemos una Conversación</h2>
+          <p class="section-lead">
+            ¿Tienes un proyecto de Inteligencia Artificial, Agentes Multinivel, desarrollo DeepTech o infraestructura de Telecomunicaciones? Ponte en contacto directamente.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+
+          <div class="contact-info-card">
+            <h3>Información de Contacto</h3>
+            <p>Ubicación y canales profesionales oficiales para consultorías, proyectos y colaboraciones:</p>
+
+            <ul class="contact-details-list">
+              <li>
+                <span class="detail-icon">🌐</span>
+                <div>
+                  <strong>Sitio Web Oficial</strong>
+                  <a href="https://kboxhubia.github.io/" target="_blank" rel="noopener">https://kboxhubia.github.io/</a>
+                </div>
+              </li>
+              <li>
+                <span class="detail-icon">💼</span>
+                <div>
+                  <strong>LinkedIn Perfil Profesional</strong>
+                  <a href="https://www.linkedin.com/in/jorgehuertatelecom" target="_blank" rel="noopener">www.linkedin.com/in/jorgehuertatelecom</a>
+                </div>
+              </li>
+              <li>
+                <span class="detail-icon">🐙</span>
+                <div>
+                  <strong>GitHub Repositorios</strong>
+                  <a href="https://github.com/Kboxhubia" target="_blank" rel="noopener">github.com/Kboxhubia</a>
+                </div>
+              </li>
+              <li>
+                <span class="detail-icon">✉️</span>
+                <div>
+                  <strong>Atención a Clientes & Mensajes</strong>
+                  <span>Contacto directo mediante el formulario o vía LinkedIn</span>
+                </div>
+              </li>
             </ul>
           </div>
+
+          <div class="contact-form-card">
+            <h3>Enviar un Mensaje Directo a huboxhubia@gmail.com</h3>
+            <form id="contactForm" action="https://formspree.io/f/xbjnqpyz" method="POST" onsubmit="handleDirectContactForm(event)">
+              <input type="hidden" name="_to" value="huboxhubia@gmail.com">
+              <input type="hidden" name="_subject" value="Nuevo mensaje desde Landing Page Kboxhubia">
+              <div class="form-group">
+                <label for="name">Nombre Completo</label>
+                <input type="text" id="name" name="name" placeholder="Ej. Ing. Carlos Mendoza" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@empresa.com" required>
+              </div>
+              <div class="form-group">
+                <label for="service">Servicio o Tema de Interés</label>
+                <select id="service" name="service">
+                  <option value="ia-agentes">Arquitectura IA & Agentes Multinivel</option>
+                  <option value="mcp-integracion">Protocolos MCP & Integración</option>
+                  <option value="deeptech-backend">Desarrollo Backend (Python, C++, Rust, Go)</option>
+                  <option value="devsecops">DevSecOps, Ciberseguridad & Linux Debian</option>
+                  <option value="telecom">Telecomunicaciones & Datacenters</option>
+                  <option value="otro">Otro Requerimiento Especial</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Mensaje / Detalle del Proyecto</label>
+                <textarea id="message" name="message" rows="4" placeholder="Describa brevemente su necesidad o proyecto..." required></textarea>
+              </div>
+              <button type="submit" class="btn primary full-width glow-action-btn" id="contactSubmitBtn">Enviar Mensaje & Notificar a Gmail ✉️</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscriptions & Publications Area -->
+    <section class="section alt" id="suscripcion">
+      <div class="container">
+        <div class="newsletter-card">
+          <div class="newsletter-info">
+            <span class="eyebrow" data-i18n="subEyebrow">Comunidad & Publicaciones</span>
+            <h3 data-i18n="subTitle">Suscríbete a Publicaciones, Artículos, Muros y Proyectos DeepTech</h3>
+            <p data-i18n="subDesc">Recibe actualizaciones sobre nuevos agentes, artículos técnicos, documentos de arquitectura y lanzamientos multimedia en tu correo.</p>
+          </div>
+          <form id="subscribeForm" class="subscribe-form" onsubmit="handleSubscribe(event)">
+            <input type="email" id="subEmail" placeholder="tu-correo@empresa.com" required>
+            <button type="submit" class="btn primary" data-i18n="subBtn">Suscribirme Gratis</button>
+          </form>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- Cafe Virtual AI Assistant Floating Widget & Modal Container -->
+  <div class="cafe-widget-launcher" id="cafeLauncher" onclick="toggleVirtualCafeModal(true)">
+    <div class="cafe-avatar-pulse">
+      <span class="avatar-emoji">☕</span>
+      <span class="online-indicator"></span>
+    </div>
+    <div class="launcher-text">
+      <span class="launcher-title" data-i18n="cafeLauncherTitle">Café Virtual IA</span>
+      <span class="launcher-sub" data-i18n="cafeLauncherSub">Agendar Cita con Jorge Huerta</span>
+    </div>
+  </div>
+
+  <!-- Virtual Cafe Modal Engine -->
+  <div class="modal-overlay" id="cafeModalOverlay">
+    <div class="modal-content cafe-modal-box">
+      <div class="modal-header">
+        <div class="agent-avatar-header">
+          <div class="avatar-circle">🤖</div>
+          <div>
+            <h4>Asistente Virtual & Embudo de Ventas — Ing. Jorge Huerta</h4>
+            <span class="status-online">● En Línea | Venezuela (VET UTC-4) 07:00 - 19:00</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="toggleVirtualCafeModal(false)">&times;</button>
+      </div>
+
+      <div class="modal-body cafe-chat-container">
+        <!-- Step 1: Initial Greeting & Prospect Classification -->
+        <div class="chat-step active" id="cafeStep1">
+          <div class="chat-bubble agent">
+            <p>¡Hola! Bienvenid@ al <strong>Café Virtual de Ing. Jorge Huerta</strong>. ☕</p>
+            <p>Soy el Agente IA de bienvenida. Para brindarle la mejor experiencia y personalizar nuestro catálogo de servicios, por favor cuénteme:</p>
+            <p><strong>¿Nos visita como Empresa / Organización o como Cliente Particular?</strong></p>
+          </div>
+          <div class="option-grid">
+            <button class="opt-btn" onclick="selectClientType('Empresa')">
+              <span class="opt-icon">🏢</span>
+              <strong>Empresa / Organización</strong>
+              <small>Proyectos corporativos, consultoría de alto nivel y enjambres de agentes.</small>
+            </button>
+            <button class="opt-btn" onclick="selectClientType('Particular')">
+              <span class="opt-icon">👤</span>
+              <strong>Cliente Particular / Profesional</strong>
+              <small>Desarrollos a medida, asesoría personalizada y proyectos individuales.</small>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Sector & Interests Qualification -->
+        <div class="chat-step" id="cafeStep2">
+          <div class="chat-bubble agent">
+            <p>Perfecto. Ha seleccionado el perfil <strong id="displayClientType">Empresa</strong>. Para perfilar adecuadamente su requerimiento:</p>
+            <p><strong>1. Indique el sector de su actividad o empresa:</strong></p>
+          </div>
+          <div class="form-group">
+            <select id="prospectSector" onchange="enableStep2Next()">
+              <option value="" disabled selected>-- Seleccione su Sector --</option>
+              <option value="Tecnología & Software">Tecnología & Software</option>
+              <option value="Telecomunicaciones & Redes">Telecomunicaciones & Redes</option>
+              <option value="Finanzas & Fintech">Finanzas & Fintech</option>
+              <option value="Salud & Biotecnología">Salud & Biotecnología</option>
+              <option value="Educación & E-Learning">Educación & E-Learning</option>
+              <option value="Gobierno & Sector Público">Gobierno & Sector Público</option>
+              <option value="Comercio / E-commerce">Comercio / E-commerce</option>
+              <option value="Otro Sector">Otro Sector</option>
+            </select>
+          </div>
+          <div class="chat-bubble agent">
+            <p><strong>2. ¿Cuál es el problema o necesidad principal que desea abordar?</strong></p>
+          </div>
+          <div class="form-group">
+            <textarea id="prospectNeeds" rows="3" placeholder="Ej. Queremos integrar un agente supervisor MCP con nuestra base de datos en Supabase y agilizar nuestro soporte..."></textarea>
+          </div>
+          <button class="btn primary full-width" onclick="proceedToScheduling()">Continuar a Selección de Fecha & Hora &rarr;</button>
+        </div>
+
+        <!-- Step 3: Date, Timezone & Conference Selection -->
+        <div class="chat-step" id="cafeStep3">
+          <div class="chat-bubble agent">
+            <p>Excelentes detalles. Ahora vamos a agendar nuestra reunión virtual. 🗓️</p>
+            <p><em>Mis horas de atención son de <strong>Lunes a Domingo de 07:00 a 19:00 (Hora Venezuela VET / UTC-4)</strong>. Ajustaremos automáticamente su zona horaria.</em></p>
+          </div>
+
+          <div class="scheduling-box">
+            <div class="form-row-grid">
+              <div class="form-group">
+                <label>Su País de Origen / Zona Horaria</label>
+                <select id="clientCountryTimezone" onchange="updateTimezoneConversion()">
+                  <option value="Venezuela (UTC-4)" selected>Venezuela (UTC-4)</option>
+                  <option value="Colombia / Perú / Ecuador (UTC-5)">Colombia / Perú / Ecuador (UTC-5)</option>
+                  <option value="México CDMX (UTC-6)">México CDMX (UTC-6)</option>
+                  <option value="España / Europa Central (UTC+2)">España / Europa Central (UTC+2)</option>
+                  <option value="Estados Unidos Este (UTC-4)">USA Este (UTC-4)</option>
+                  <option value="Estados Unidos Pacífico (UTC-7)">USA Pacífico (UTC-7)</option>
+                  <option value="Argentina / Chile (UTC-3)">Argentina / Chile (UTC-3)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Plataforma Preferida</label>
+                <select id="meetingPlatform">
+                  <option value="Google Meet">Google Meet</option>
+                  <option value="Zoom Video">Zoom Video</option>
+                  <option value="Llamada Directa / Teams">Microsoft Teams</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row-grid">
+              <div class="form-group">
+                <label>Fecha de la Cita</label>
+                <input type="date" id="meetingDate" onchange="validateMeetingDateTime()">
+              </div>
+              <div class="form-group">
+                <label>Hora Propuesta (Hora Local)</label>
+                <input type="time" id="meetingTime" min="07:00" max="19:00" onchange="validateMeetingDateTime()">
+              </div>
+            </div>
+
+            <!-- Glowing Visual Confirmation Box -->
+            <div id="timezoneFlashCard" class="timezone-flash-card hidden">
+              <div class="flash-icon">✨</div>
+              <div class="flash-details">
+                <h5 id="flashStatusText">Fecha & Hora Certificadas</h5>
+                <p id="flashTimeComparison">Hora Venezuela (Ing. Jorge Huerta): --:-- | Su Hora Local: --:--</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-bubble agent" style="margin-top: 1rem;">
+            <p><strong>3. Datos de Contacto & Participantes:</strong></p>
+          </div>
+
+          <div class="form-group">
+            <label>Su Nombre Completo / Empresa</label>
+            <input type="text" id="clientFullName" placeholder="Ej. Ing. Carlos Mendoza">
+          </div>
+          <div class="form-group">
+            <label>Su Correo Principal (Obligatorio)</label>
+            <input type="email" id="clientEmail" placeholder="ejemplo@empresa.com" required>
+          </div>
+          <div class="form-group">
+            <label>Correos adicionales a notificar (separados por coma)</label>
+            <input type="text" id="additionalEmails" placeholder="socio1@empresa.com, gerente@empresa.com">
+          </div>
+
+          <button class="btn primary full-width glow-action-btn" onclick="generateMeetingSummary()">Certificar Datos & Ver Resumen Resumen &rarr;</button>
+        </div>
+
+        <!-- Step 4: Summary Confirmation & Final Dispatch -->
+        <div class="chat-step" id="cafeStep4">
+          <div class="chat-bubble agent">
+            <p>🎉 <strong>Resumen de Cita Certificado Automáticamente:</strong></p>
+            <p>Por favor revise la información antes de enviar el registro a <code>huboxhubia@gmail.com</code>:</p>
+          </div>
+
+          <div class="summary-card" id="summaryCardDetails">
+            <!-- Dynamic HTML inserted via JS -->
+          </div>
+
+          <div class="summary-actions">
+            <button class="btn secondary" onclick="backToStep(3)">&larr; Editar Datos</button>
+            <button class="btn primary glow-action-btn" id="confirmDispatchBtn" onclick="dispatchMeetingRequest()">Confirmar Cita & Notificar a Todos los Correos ✉️</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Final Success Feedback -->
+        <div class="chat-step" id="cafeStep5">
+          <div class="success-box">
+            <div class="success-icon">✅</div>
+            <h3>¡Cita Agendada y Notificaciones Enviadas con Éxito!</h3>
+            <p>Se ha registrado la solicitud de reunión con el perfilamiento inicial. Se envió copia a <strong>huboxhubia@gmail.com</strong> y a los correos indicados.</p>
+            <p>En breve recibirá el enlace oficial de <strong>Google Meet / Zoom</strong> en su bandeja de entrada.</p>
+            <button class="btn primary" onclick="toggleVirtualCafeModal(false)">Cerrar Café Virtual</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Login Auth Gate Modal -->
+  <div class="modal-overlay" id="adminAuthModal">
+    <div class="modal-content auth-modal-box">
+      <div class="modal-header">
+        <h4>🔒 Registro & Acceso Privado — Panel Admin</h4>
+        <button class="modal-close-btn" onclick="toggleAdminModal(false)">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="auth-notice">El acceso está estrictamente protegido. Para ingresar al panel debe registrar sus datos y clave de autorización previa. Si la clave es incorrecta o no registra sus datos, el acceso será denegado y se enviará una alerta a <code>huboxhubia@gmail.com</code>.</p>
+
+        <form id="adminAuthForm" onsubmit="handleAdminLoginSubmit(event)">
+          <div class="form-group">
+            <label for="adminName">Nombre Completo del Administrador</label>
+            <input type="text" id="adminName" placeholder="Ej. Ing. Jorge Huerta" required>
+          </div>
+          <div class="form-group">
+            <label for="adminEmail">Correo Corporativo / Gmail Registrado</label>
+            <input type="email" id="adminEmail" placeholder="huboxhubia@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label for="adminKey">Clave de Acceso / Token Admin</label>
+            <input type="password" id="adminKey" placeholder="Ingrese su clave privada de acceso" required>
+          </div>
+          <div id="adminAuthError" class="auth-error-msg hidden" style="color: #ff5555; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+          <button type="submit" class="btn primary full-width glow-action-btn" id="adminSubmitBtn">Registrar Acceso & Validar Clave 🔐</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Repo Download Authorization Request Modal -->
+  <div class="modal-overlay" id="downloadAuthModal">
+    <div class="modal-content auth-modal-box">
+      <div class="modal-header">
+        <h4>🛡️ Autorización de Descarga Requerida</h4>
+        <button class="modal-close-btn" onclick="toggleDownloadModal(false)">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Para autorizar la descarga o acceso al repositorio fuente, por favor indique su correo para emitir la notificación de aprobación al Administrador:</p>
+        <form onsubmit="handleRepoDownloadRequest(event)">
+          <div class="form-group">
+            <label>Correo Electrónico de Quien Solicita</label>
+            <input type="email" id="downloadUserEmail" placeholder="correo@empresa.com" required>
+          </div>
+          <button type="submit" class="btn primary full-width">Notificar al Ing. Jorge Huerta para Autorizar Descarga</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Consent & Analytics Notification Bar -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+      <p>🍪 Este sitio utiliza cookies y analíticas de navegación para registrar métricas de uso y ofrecer una experiencia personalizada. Al continuar, usted acepta nuestra política de privacidad.</p>
+      <div class="cookie-buttons">
+        <button class="btn primary" onclick="acceptCookies()">Aceptar Cookies & Analytics</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer class="site-footer">
-    <div class="container">
-      <p>&copy; <span id="year"></span> Jorge Huerta — Kboxhubia. <a href="https://github.com/Kboxhubia">GitHub</a></p>
+    <div class="container footer-content">
+      <div class="footer-left">
+        <p>&copy; <span id="currentYear"></span> <strong>Ing. Jorge Huerta</strong> — Kboxhubia. Todos los derechos reservados.</p>
+        <p class="footer-subtext">Diseñado con enfoque DeepTech, IA Agentica & Alto Rendimiento (Visitas Registradas: <span id="visitorCounter">1,248</span>).</p>
+      </div>
+      <div class="footer-right">
+        <a href="https://github.com/Kboxhubia" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/jorgehuertatelecom" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#adminAuthModal" onclick="toggleAdminModal(true)">Panel Privado Admin</a>
+      </div>
     </div>
   </footer>
 
-  <script src="/assets/js/main.js"></script>
+  <!-- Main JavaScript File -->
+  <script src="./assets/js/main.js"></script>
 </body>
 </html>
