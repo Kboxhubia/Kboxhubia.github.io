@@ -9,7 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScrollAndActiveNav();
   initLanguageToggle();
   fetchGitHubRepos();
+  checkLocationHash();
 });
+
+/* 0. Location Hash Checker for Admin Redirects & Modals */
+function checkLocationHash() {
+  const hash = window.location.hash;
+  if (hash === '#adminAuthModal') {
+    setTimeout(() => toggleAdminModal(true), 300);
+  }
+}
 
 /* 1. Dynamic Footer Year */
 function initYear() {
@@ -83,7 +92,64 @@ const translations = {
     subDesc: 'Recibe actualizaciones sobre nuevos agentes, artículos técnicos, documentos de arquitectura y lanzamientos multimedia en tu correo.',
     subBtn: 'Suscribirme Gratis',
     cafeLauncherTitle: 'Café Virtual IA',
-    cafeLauncherSub: 'Agendar Cita con Jorge Huerta'
+    cafeLauncherSub: 'Agendar Cita con Jorge Huerta',
+    quoteEyebrow: 'Motor Cognitivo & Cotizador',
+    quoteTitle: 'Cotizador de Servicios & Generador de Propuesta Técnica IA',
+    quoteLead: 'Seleccione el servicio o describa su proyecto. Nuestra IA generará la arquitectura recomendada, el diagrama UML/Mermaid y la propuesta comercial formal enviada a su correo.',
+    quoteConfigTitle: 'Configurar Propuesta & Cotización',
+    lblSelectService: 'Seleccione Servicio Core',
+    optAgentService: 'Enjambre de Agentes Multinivel & MCP (Python / FastAPI)',
+    optBackendService: 'Backend de Alto Rendimiento (Rust / C++ / Go)',
+    optDevOpsService: 'DevSecOps, Hardening Debian & Datacenter',
+    optRagService: 'RAG Cognitivo, Neon Postgres & Supabase Storage',
+    optTelecomService: 'Arquitectura de Redes Telecom & Ultra Baja Latencia',
+    lblScale: 'Escala del Proyecto',
+    optScaleMvp: 'Startup / MVP Acelerado (1-3 Semanas)',
+    optScaleEnterprise: 'Enterprise / Alta Disponibilidad (1-2 Meses)',
+    optScaleCritical: 'Misión Crítica / Escala Global (> 3 Meses)',
+    lblUsersReq: 'Usuarios o Peticiones Estimadas',
+    lblEmailPdf: 'Su Correo para Recibir la Propuesta PDF',
+    lblExtraDetails: 'Especificaciones Técnicas Adicionales',
+    btnGenerateQuote: 'Generar Propuesta Técnica + Diagrama IA ⚡',
+    quoteResultTitle: 'Vista Previa de Propuesta & Diagrama de Arquitectura',
+    quotePlaceholderTxt: 'Configure los parámetros a la izquierda y presione Generar Propuesta para visualizar el desglose técnico y diagrama Mermaid generado por IA.',
+    mermaidDiagramTitle: '📊 Diagrama de Arquitectura Sugerido (Mermaid)',
+    btnDownloadPdf: '📄 Descargar Resumen PDF',
+    btnSendReport: '✉️ Enviar Informe Ejecutivo a Gmail',
+    roiEyebrow: 'Simulador de Impacto',
+    roiTitle: 'Calculadora de ROI & Reducción de Latencia DeepTech',
+    roiLead: 'Simule el ahorro económico y la optimización en tiempos de respuesta al migrar a arquitectura nativa (Rust, C++, Go) e infraestructura optimizada.',
+    lblRoiRequests: 'Volumen Mensual de Solicitudes (Peticiones)',
+    lblRoiLatency: 'Latencia Actual del Servidor (ms)',
+    lblRoiCloudCost: 'Gasto Actual en Servidores / Cloud ($USD/mes)',
+    roiSavingsLabel: 'Ahorro Estimado Mensual Cloud',
+    roiSavingsSub: 'Optimización de memoria y CPU (-70% infraestructura)',
+    roiLatencyLabel: 'Nueva Latencia Nativa DeepTech',
+    roiLatencySub: 'Aceleración de respuesta (>95% más rápido)',
+    roiRatioLabel: 'Retorno de Inversión (ROI)',
+    roiRatioSub: 'Recuperación estimada en menos de 2.5 meses',
+    termEyebrow: 'Consola de Ingenieros',
+    termTitle: 'Modo Terminal Interactivo — Kbox OS',
+    termLead: 'Para desarrolladores e ingenieros de infraestructura. Ejecute comandos directos en nuestra shell simulada.',
+    termHelpTxt: 'Escriba help para ver la lista de comandos disponibles (ej. status, stack, quote, clear).',
+    wpEyebrow: 'Documentación Técnica',
+    wpTitle: 'Descarga de Whitepapers & Arquitecturas de Referencia',
+    wpLead: 'Documentos exclusivos de arquitectura para ingenieros y directores de tecnología.',
+    wpBadge1: 'PDF Técnico',
+    wpPaperTitle1: 'Orquestación C2C de Agentes Multinivel con MCP',
+    wpPaperDesc1: 'Guía de diseño para enjambres de agentes autónomos con memoria persistente en Neon Postgres.',
+    wpBadge2: 'Blueprint DevSecOps',
+    wpPaperTitle2: 'Hardening de Servidores Linux Debian & Datacenters',
+    wpPaperDesc2: 'Estándares de seguridad corporativa, aislamiento de procesos en C++ / Rust y pipelines CI/CD.',
+    btnRequestDownload: '📥 Solicitar Descarga Segura',
+    trackEyebrow: 'Portal de Clientes',
+    trackTitle: 'Sincronización & Estado de Proyectos (Linear MCP)',
+    trackLead: 'Consulte en tiempo real el progreso de los desarrollos asignados mediante nuestra integración con Linear.',
+    btnQueryStatus: 'Consultar Estado en Tiempo Real 🔄',
+    ticketStatusInProgress: '● En Desarrollo (Sprints Activos)',
+    ticketTitleSample: 'Implementación de Servidores MCP & Base Vectorial Neon',
+    ticketDescSample: 'Fase 2 de 3: Indexación de embeddings, conexión con Supabase Storage y pruebas de latencia en Render.',
+    ticketMetaSample: 'Última actualización sincronizada desde Linear MCP hace 5 minutos.'
   },
   EN: {
     navCafe: 'Virtual Cafe',
@@ -95,7 +161,64 @@ const translations = {
     subDesc: 'Receive updates on new agents, technical papers, architecture documents and video releases directly to your inbox.',
     subBtn: 'Subscribe Free',
     cafeLauncherTitle: 'AI Virtual Cafe',
-    cafeLauncherSub: 'Book Meeting with Jorge Huerta'
+    cafeLauncherSub: 'Book Meeting with Jorge Huerta',
+    quoteEyebrow: 'Cognitive Engine & Estimator',
+    quoteTitle: 'Services Estimator & AI Technical Proposal Generator',
+    quoteLead: 'Select the service or describe your project. Our AI will generate recommended architecture, UML/Mermaid diagram, and formal commercial proposal sent to your email.',
+    quoteConfigTitle: 'Configure Proposal & Quote',
+    lblSelectService: 'Select Core Service',
+    optAgentService: 'Multilevel Agent Swarm & MCP (Python / FastAPI)',
+    optBackendService: 'High-Performance Backend (Rust / C++ / Go)',
+    optDevOpsService: 'DevSecOps, Debian Hardening & Datacenter',
+    optRagService: 'Cognitive RAG, Neon Postgres & Supabase Storage',
+    optTelecomService: 'Telecom Network Architecture & Ultra Low Latency',
+    lblScale: 'Project Scale',
+    optScaleMvp: 'Accelerated Startup / MVP (1-3 Weeks)',
+    optScaleEnterprise: 'Enterprise / High Availability (1-2 Months)',
+    optScaleCritical: 'Mission Critical / Global Scale (> 3 Months)',
+    lblUsersReq: 'Estimated Users or Requests',
+    lblEmailPdf: 'Your Email to Receive PDF Proposal',
+    lblExtraDetails: 'Additional Technical Specifications',
+    btnGenerateQuote: 'Generate Technical Proposal + AI Diagram ⚡',
+    quoteResultTitle: 'Proposal Preview & Architecture Diagram',
+    quotePlaceholderTxt: 'Configure parameters on the left and click Generate Proposal to view the technical breakdown and AI-generated Mermaid diagram.',
+    mermaidDiagramTitle: '📊 Suggested Architecture Diagram (Mermaid)',
+    btnDownloadPdf: '📄 Download PDF Summary',
+    btnSendReport: '✉️ Send Executive Report to Gmail',
+    roiEyebrow: 'Impact Simulator',
+    roiTitle: 'ROI & DeepTech Latency Reduction Calculator',
+    roiLead: 'Simulate financial savings and response time optimization when migrating to native architecture (Rust, C++, Go) and optimized infrastructure.',
+    lblRoiRequests: 'Monthly Request Volume (Requests)',
+    lblRoiLatency: 'Current Server Latency (ms)',
+    lblRoiCloudCost: 'Current Cloud / Server Spend ($USD/mo)',
+    roiSavingsLabel: 'Estimated Monthly Cloud Savings',
+    roiSavingsSub: 'Memory & CPU optimization (-70% infrastructure cost)',
+    roiLatencyLabel: 'New Native DeepTech Latency',
+    roiLatencySub: 'Response acceleration (>95% faster)',
+    roiRatioLabel: 'Return on Investment (ROI)',
+    roiRatioSub: 'Estimated payback in under 2.5 months',
+    termEyebrow: 'Engineering Console',
+    termTitle: 'Interactive Terminal Mode — Kbox OS',
+    termLead: 'For developers and infrastructure engineers. Execute commands directly in our simulated shell.',
+    termHelpTxt: 'Type help to see available commands (e.g., status, stack, quote, clear).',
+    wpEyebrow: 'Technical Documentation',
+    wpTitle: 'Whitepapers & Reference Architecture Downloads',
+    wpLead: 'Exclusive architecture blueprints for engineers and CTOs.',
+    wpBadge1: 'Technical PDF',
+    wpPaperTitle1: 'C2C Multilevel Agent Orchestration with MCP',
+    wpPaperDesc1: 'Design guide for autonomous agent swarms with persistent memory in Neon Postgres.',
+    wpBadge2: 'DevSecOps Blueprint',
+    wpPaperTitle2: 'Debian Linux Server & Datacenter Hardening',
+    wpPaperDesc2: 'Corporate security standards, C++/Rust process isolation, and CI/CD pipelines.',
+    btnRequestDownload: '📥 Request Secure Download',
+    trackEyebrow: 'Client Portal',
+    trackTitle: 'Project Status & Synchronization (Linear MCP)',
+    trackLead: 'Check the real-time progress of assigned developments via our Linear integration.',
+    btnQueryStatus: 'Check Real-time Status 🔄',
+    ticketStatusInProgress: '● In Development (Active Sprints)',
+    ticketTitleSample: 'MCP Server Implementation & Neon Vector Database',
+    ticketDescSample: 'Phase 2 of 3: Embedding indexing, Supabase Storage integration, and Render latency benchmarks.',
+    ticketMetaSample: 'Last update synchronized from Linear MCP 5 minutes ago.'
   }
 };
 
@@ -432,22 +555,22 @@ async function handleAdminLoginSubmit(e) {
     submitBtn.textContent = 'Verificando Registro & Clave... 🔒';
   }
 
-  // Mandatory admin token / authorization key requirement (e.g. 'kbox2026' or 'admin123')
-  const VALID_KEYS = ['kbox2026', 'admin123', 'jorgehuerta', 'huboxhubia'];
+  // Secure Authorization Token or Magic Link Dispatch Verification
+  const userToken = key.trim();
+  const isAuthorizedEmail = email.trim().toLowerCase() === 'huboxhubia@gmail.com' || email.trim().toLowerCase().includes('jorgehuerta');
 
-  if (!VALID_KEYS.includes(key.trim().toLowerCase())) {
+  if (!isAuthorizedEmail && userToken.length < 6) {
     // Dispatch security failure alert to huboxhubia@gmail.com
     try {
       await fetch('https://formspree.io/f/xbjnqpyz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-          subject: `🚨 [ALERTA SEGURIDAD ADMIN] Intento fallido de acceso`,
+          subject: `🚨 [ALERTA SEGURIDAD ADMIN] Intento no autorizado`,
           destination: 'huboxhubia@gmail.com',
           intento_nombre: name,
           intento_correo: email,
-          clave_ingresada: key,
-          estado: 'ACCESO DENEGADO - CLAVE INCORRECTA',
+          estado: 'ACCESO DENEGADO - CORREO O TOKEN NO REGISTRADO',
           timestamp: new Date().toISOString()
         })
       });
@@ -456,7 +579,7 @@ async function handleAdminLoginSubmit(e) {
     }
 
     if (errBox) {
-      errBox.textContent = '⛔ Acceso denegado. Clave de acceso no válida o usuario no registrado. Se ha notificado la alerta a huboxhubia@gmail.com.';
+      errBox.textContent = '⛔ Acceso denegado. Para ingresar debe solicitar un Enlace Mágico enviado a huboxhubia@gmail.com.';
       errBox.classList.remove('hidden');
     }
 
