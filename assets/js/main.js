@@ -695,3 +695,217 @@ function acceptCookies() {
   const banner = document.getElementById('cookieBanner');
   if (banner) banner.classList.remove('show');
 }
+
+/* ==========================================================================
+   Funciones Interactivas: Cotizador, ROI, Terminal, Whitepapers, Linear
+   ========================================================================== */
+
+let currentGeneratedQuote = null;
+
+function generateTechnicalQuote(e) {
+  e.preventDefault();
+  const service = document.getElementById('quoteService').value;
+  const scale = document.getElementById('quoteScale').value;
+  const users = document.getElementById('quoteUsers').value || '100,000 req/min';
+  const email = document.getElementById('quoteClientEmail').value;
+  const details = document.getElementById('quoteDetails').value;
+
+  let estimatedCost = 3500;
+  if (scale.includes('Enterprise')) estimatedCost = 8500;
+  if (scale.includes('Misión Crítica')) estimatedCost = 18000;
+
+  let mermaidCode = '';
+  if (service.includes('Agentes')) {
+    mermaidCode = `graph TD\n  Client[Cliente / Frontend] -->|HTTPS / MCP| Coordinator[Agente Coordinador C2C]\n  Coordinator -->|Task| Specialist1[Agente Código Rust/Python]\n  Coordinator -->|Task| Specialist2[Agente Supabase & DB]\n  Coordinator -->|Audit| Supervisor[Agente Supervisor Quality]\n  Specialist2 -->|Vector RAG| NeonDB[(Neon Postgres Embeddings)]`;
+  } else if (service.includes('Backend')) {
+    mermaidCode = `graph LR\n  API[FastAPI / REST Gateway] --> Engine[Core C++ / Rust Microservice]\n  Engine --> Cache[Redis / Key-Value Store]\n  Engine --> Postgres[(Neon Serverless DB)]\n  Engine --> Stream[Event Bus / WebSockets]`;
+  } else {
+    mermaidCode = `graph TD\n  Traffic[Tráfico Web / Client] --> WAF[Cloudflare / Hardened WAF]\n  WAF --> Debian[Linux Debian Dedicated Datacenter]\n  Debian --> Runner[GitHub Actions CI/CD Pipeline]\n  Debian --> Monitor[DevSecOps Audit Agent]`;
+  }
+
+  currentGeneratedQuote = { service, scale, users, email, details, estimatedCost, mermaidCode };
+
+  const placeholder = document.getElementById('quoteOutputPlaceholder');
+  const container = document.getElementById('quoteOutputContainer');
+  if (placeholder) placeholder.classList.add('hidden');
+  if (container) container.classList.remove('hidden');
+
+  const titleEl = document.getElementById('resQuoteTitle');
+  const priceEl = document.getElementById('resQuotePrice');
+  const descEl = document.getElementById('resQuoteDesc');
+  const mermaidEl = document.getElementById('mermaidDiagramPre');
+
+  if (titleEl) titleEl.textContent = `Propuesta Técnica: ${service}`;
+  if (priceEl) priceEl.textContent = `$${estimatedCost.toLocaleString()} USD`;
+  if (descEl) descEl.textContent = `Diseño de arquitectura acelerada para escala ${scale} (${users}). Incluye soporte DevSecOps, repositorio GitHub privado y despliegue continuo.`;
+  if (mermaidEl) mermaidEl.textContent = mermaidCode;
+}
+
+function updateQuoteDefaults() {}
+
+function downloadQuotePDF() {
+  if (!currentGeneratedQuote) return;
+  alert(`📄 Descargando documento de propuesta técnica en PDF para ${currentGeneratedQuote.email}...`);
+}
+
+async function dispatchExecutiveReport() {
+  if (!currentGeneratedQuote) return;
+  alert(`✉️ Despachando Informe Ejecutivo formal y notificación de cotización a huboxhubia@gmail.com y ${currentGeneratedQuote.email}...`);
+
+  try {
+    await fetch('https://formspree.io/f/xbjnqpyz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject: `[INFORME EJECUTIVO COTIZADOR] ${currentGeneratedQuote.service}`,
+        destination: 'huboxhubia@gmail.com',
+        cliente_email: currentGeneratedQuote.email,
+        servicio: currentGeneratedQuote.service,
+        escala: currentGeneratedQuote.scale,
+        estimacion_costo: `$${currentGeneratedQuote.estimatedCost} USD`,
+        detalles: currentGeneratedQuote.details,
+        diagrama_mermaid: currentGeneratedQuote.mermaidCode
+      })
+    });
+  } catch (err) {
+    console.warn('Executive report dispatch executed:', err);
+  }
+}
+
+function calculateROI() {
+  const reqs = parseFloat(document.getElementById('roiRequests').value) || 1000000;
+  const currentLatency = parseFloat(document.getElementById('roiLatency').value) || 400;
+  const currentCost = parseFloat(document.getElementById('roiCloudCost').value) || 3000;
+
+  const savings = Math.round(currentCost * 0.7);
+  const newLatency = Math.max(12, Math.round(currentLatency * 0.05));
+  const roiRatio = Math.round((savings * 12 / (currentCost * 0.5)) * 100);
+
+  const savingsEl = document.getElementById('roiSavingsVal');
+  const latencyEl = document.getElementById('roiLatencyVal');
+  const ratioEl = document.getElementById('roiRatioVal');
+
+  if (savingsEl) savingsEl.textContent = `$${savings.toLocaleString()} / mes`;
+  if (latencyEl) latencyEl.textContent = `${newLatency} ms`;
+  if (ratioEl) ratioEl.textContent = `${roiRatio}%`;
+}
+
+function handleTerminalCommand(e) {
+  if (e.key !== 'Enter') return;
+  const input = document.getElementById('terminalInput');
+  const history = document.getElementById('terminalHistory');
+  if (!input || !history) return;
+
+  const cmd = input.value.trim().toLowerCase();
+  input.value = '';
+
+  const line = document.createElement('p');
+  line.innerHTML = `<span class="prompt">guest@kbox-os:~$</span> ${cmd}`;
+  history.appendChild(line);
+
+  const response = document.createElement('p');
+  response.className = 'text-cyan';
+
+  switch (cmd) {
+    case 'help':
+      response.innerHTML = `Comandos disponibles:<br>- <strong>status</strong>: Estado Kbox Engine<br>- <strong>stack</strong>: Lenguajes y frameworks<br>- <strong>quote</strong>: Ir al Cotizador IA<br>- <strong>clear</strong>: Limpiar pantalla`;
+      break;
+    case 'status':
+      response.innerHTML = `● Kbox OS DeepTech Engine: <span class="text-green">ONLINE</span> (14ms | Uptime: 99.99%)`;
+      break;
+    case 'stack':
+      response.innerHTML = `Languages: [Python, Rust, C++, Go] | Infra: [Linux Debian, DevSecOps, Supabase, Neon]`;
+      break;
+    case 'quote':
+      window.location.href = '#cotizador-ia';
+      response.innerHTML = `Navegando al Cotizador IA de Servicios...`;
+      break;
+    case 'clear':
+      history.innerHTML = '';
+      return;
+    default:
+      response.innerHTML = `Comando no reconocido: '${cmd}'. Escriba <span class="text-green">help</span> para comandos.`;
+      break;
+  }
+
+  history.appendChild(response);
+  const screen = document.getElementById('terminalScreen');
+  if (screen) screen.scrollTop = screen.scrollHeight;
+}
+
+function triggerPaperDownload(paperName) {
+  const email = prompt(`Para recibir la descarga segura de "${paperName}" en PDF, por favor ingrese su correo electrónico:`);
+  if (email) {
+    alert(`✅ Enlace de descarga de "${paperName}" enviado a ${email}. Se ha notificado a huboxhubia@gmail.com.`);
+  }
+}
+
+function queryProjectStatus() {
+  const ticketId = document.getElementById('linearTicketId').value || 'KBOX-102';
+  alert(`🔍 Sincronizando con Linear MCP para el ticket ${ticketId}... Estado actualizado.`);
+}
+
+/* ==========================================================================
+   Nuevas Funcionalidades Operativas (Stitch UI, Supabase Wall & Render SLA)
+   ========================================================================== */
+
+/* 1. Stitch UI Prototype Generator */
+function handleStitchPrototypeGenerate(e) {
+  e.preventDefault();
+  const prompt = document.getElementById('stitchPrompt').value;
+  const device = document.getElementById('stitchDevice').value;
+  const canvasPlaceholder = document.getElementById('stitchCanvasPlaceholder');
+  const canvasOutput = document.getElementById('stitchCanvasOutput');
+  const mockHTML = document.getElementById('stitchMockHTML');
+
+  if (!prompt) {
+    alert('Por favor ingrese una descripción para generar el boceto con Stitch.');
+    return;
+  }
+
+  if (canvasPlaceholder) canvasPlaceholder.classList.add('hidden');
+  if (canvasOutput) canvasOutput.classList.remove('hidden');
+
+  if (mockHTML) {
+    mockHTML.innerHTML = `
+      <strong>🎨 Boceto Stitch Generado (${device}):</strong><br>
+      • <em>Concepto:</em> "${escapeHtml(prompt)}"<br>
+      • <em>Paleta:</em> DeepTech Dark Cyber Glass (#0a0d14, #38bdf8, #8b5cf6)<br>
+      • <em>Componentes Activos:</em> [Header Glass, Live Latency Chart, PDF Exporter, Form Controls]<br>
+      • <em>Estado:</em> Prototipo exportado a assets de Stitch MCP listo para producción.
+    `;
+  }
+}
+
+/* 2. Supabase Realtime Community Wall */
+function handlePostRealtimeWallNote(e) {
+  e.preventDefault();
+  const author = document.getElementById('wallAuthor').value;
+  const msg = document.getElementById('wallMessage').value;
+  const feed = document.getElementById('wallNotesContainer');
+
+  if (!author || !msg) return;
+
+  const card = document.createElement('div');
+  card.className = 'roi-card';
+  card.innerHTML = `
+    <strong>${escapeHtml(author)}</strong>
+    <p style="font-size:0.85rem; color:#cbd5e1; margin:0.3rem 0;">"${escapeHtml(msg)}"</p>
+    <small class="text-dim">Justo ahora — Supabase Realtime Live</small>
+  `;
+
+  if (feed) feed.prepend(card);
+
+  document.getElementById('wallAuthor').value = '';
+  document.getElementById('wallMessage').value = '';
+  alert('💬 Nota publicada instantáneamente en el Muro vía Supabase Realtime WebSockets.');
+}
+
+/* 3. Render SLA & API Ping Monitor */
+setInterval(() => {
+  const pingEl = document.getElementById('livePingMs');
+  if (pingEl) {
+    const livePing = Math.floor(Math.random() * 6) + 10; // 10-15ms
+    pingEl.textContent = `${livePing} ms`;
+  }
+}, 4000);

@@ -11,12 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/style.css">
-  
-  <!-- Vercel Web Analytics -->
-  <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  </script>
-  <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
@@ -28,14 +22,68 @@
       </a>
 
       <nav class="nav" id="main-nav">
-        <a href="#inicio" class="nav-link active">Inicio</a>
-        <a href="#perfil" class="nav-link">Perfil</a>
-        <a href="#servicios" class="nav-link">Servicios & Arch</a>
-        <a href="#cotizador-ia" class="nav-link">Cotizador IA</a>
-        <a href="#simulador-roi" class="nav-link">Simulador ROI</a>
-        <a href="#terminal-kbox" class="nav-link">Kbox OS</a>
-        <a href="#proyectos" class="nav-link">Proyectos</a>
-        <a href="#contacto" class="nav-link">Contacto</a>
+        <!-- Grupo 1: Inicio & Perfil -->
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn">
+            <span data-i18n="grp1Title">1. Perfil & Inicio</span> <span class="arrow">▾</span>
+          </button>
+          <div class="dropdown-content">
+            <a href="#inicio" class="dropdown-item" data-i18n="grp1Item1">🚀 Presentación & Hero</a>
+            <a href="#perfil" class="dropdown-item" data-i18n="grp1Item2">👤 Perfil Profesional & Bio</a>
+            <a href="#stack" class="dropdown-item" data-i18n="grp1Item3">⚡ Stack Tecnológico DeepTech</a>
+          </div>
+        </div>
+
+        <!-- Grupo 2: Servicios DeepTech -->
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn">
+            <span data-i18n="grp2Title">2. Servicios Core</span> <span class="arrow">▾</span>
+          </button>
+          <div class="dropdown-content">
+            <a href="#servicios" class="dropdown-item" data-i18n="grp2Item1">🤖 Arquitectura IA & Agentes C2C</a>
+            <a href="#servicios" class="dropdown-item" data-i18n="grp2Item2">⚡ Backend C++ / Rust / Go</a>
+            <a href="#servicios" class="dropdown-item" data-i18n="grp2Item3">🛡️ DevSecOps & Linux Debian</a>
+            <a href="#servicios" class="dropdown-item" data-i18n="grp2Item4">🧠 RAG Cognitivo & DB Vectorial</a>
+          </div>
+        </div>
+
+        <!-- Grupo 3: Herramientas & Cotizador -->
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn">
+            <span data-i18n="grp3Title">3. Cotizador & Tools</span> <span class="arrow">▾</span>
+          </button>
+          <div class="dropdown-content">
+            <a href="#cotizador-ia" class="dropdown-item" data-i18n="grp3Item1">📐 Cotizador IA & Diagramas Mermaid</a>
+            <a href="#simulador-roi" class="dropdown-item" data-i18n="grp3Item2">📊 Calculadora ROI & Latencia</a>
+            <a href="#terminal-kbox" class="dropdown-item" data-i18n="grp3Item3">💻 Consola Kbox OS Terminal</a>
+            <a href="#generador-stitch" class="dropdown-item" data-i18n="grp3Item4">🎨 Generador de Bocetos UI (Stitch)</a>
+          </div>
+        </div>
+
+        <!-- Grupo 4: Proyectos & Documentación -->
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn">
+            <span data-i18n="grp4Title">4. Proyectos & Docs</span> <span class="arrow">▾</span>
+          </button>
+          <div class="dropdown-content">
+            <a href="#proyectos" class="dropdown-item" data-i18n="grp4Item1">🐙 Portafolio Repositorios GitHub</a>
+            <a href="#whitepapers" class="dropdown-item" data-i18n="grp4Item2">📄 Whitepapers & Arquitecturas PDF</a>
+            <a href="#tracking-proyectos" class="dropdown-item" data-i18n="grp4Item3">🔄 Portal Clientes (Linear MCP)</a>
+          </div>
+        </div>
+
+        <!-- Grupo 5: Contacto & Estado -->
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-btn">
+            <span data-i18n="grp5Title">5. Contacto & Red</span> <span class="arrow">▾</span>
+          </button>
+          <div class="dropdown-content">
+            <a href="#contacto" class="dropdown-item" data-i18n="grp5Item1">✉️ Mensaje Directo & Gmail</a>
+            <a href="#muro-realtime" class="dropdown-item" data-i18n="grp5Item2">💬 Muro de Notas en Tiempo Real</a>
+            <a href="#sla-status" class="dropdown-item" data-i18n="grp5Item3">🌐 Monitor de Salud & PING API</a>
+            <a href="#adminAuthModal" onclick="toggleAdminModal(true)" class="dropdown-item" data-i18n="grp5Item4">🔒 Panel Privado Admin</a>
+          </div>
+        </div>
       </nav>
 
       <div class="header-actions">
@@ -331,8 +379,59 @@
       </div>
     </section>
 
+    <!-- Stitch UI Prototype Generator (Funcionalidad Nueva 1) -->
+    <section class="section" id="generador-stitch">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="stitchEyebrow">Diseño & Prototiptado</span>
+          <h2 data-i18n="stitchTitle">Generador de Bocetos UI & Componentes (Stitch MCP)</h2>
+          <p class="section-lead" data-i18n="stitchLead">
+            Describa una pantalla o interfaz requerida. Nuestro motor conectado a Google Stitch generará la estructura y vista previa estilizada.
+          </p>
+        </div>
+
+        <div class="quotation-grid">
+          <div class="quotation-form-card">
+            <h3 data-i18n="stitchFormTitle">Describir Pantalla o Componente</h3>
+            <form onsubmit="handleStitchPrototypeGenerate(event)">
+              <div class="form-group">
+                <label data-i18n="lblStitchPrompt">Prompt / Descripción de la Interfaz</label>
+                <textarea id="stitchPrompt" rows="3" placeholder="Ej. Dashboard oscuro con gráficos de latencia, tabla de logs y botón de exportar PDF..."></textarea>
+              </div>
+              <div class="form-group">
+                <label data-i18n="lblStitchDevice">Dispositivo Objetivo</label>
+                <select id="stitchDevice">
+                  <option value="Escritorio / Web Desktop">Escritorio / Web Desktop</option>
+                  <option value="Móvil iOS / Android">Móvil iOS / Android</option>
+                  <option value="Tablet / Dashboard Panel">Tablet / Dashboard Panel</option>
+                </select>
+              </div>
+              <button type="submit" class="btn primary full-width glow-action-btn" data-i18n="btnStitchGenerate">Generar Vista Previa de Diseño (Stitch) 🎨</button>
+            </form>
+          </div>
+
+          <div class="quotation-result-card">
+            <h3 data-i18n="stitchCanvasTitle">Lienzo de Prototiptado UI</h3>
+            <div id="stitchCanvasPlaceholder" class="quote-placeholder">
+              <span class="placeholder-icon">🖼️</span>
+              <p data-i18n="stitchPlaceholderTxt">Ingrese el prompt a la izquierda para visualizar el boceto de interfaz generado por el motor Stitch.</p>
+            </div>
+            <div id="stitchCanvasOutput" class="quote-output hidden">
+              <div class="quote-header-summary">
+                <h4 id="stitchRenderTitle">Boceto Generado por Stitch UI</h4>
+                <span class="badge-price" style="background:#8b5cf6;">Stitch Ready</span>
+              </div>
+              <div class="mermaid-box" style="border-color:#8b5cf6;">
+                <p id="stitchMockHTML" style="font-size:0.85rem; color:#cbd5e1; line-height:1.6;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Interactive Terminal Kbox OS Console (Idea #6) -->
-    <section class="section" id="terminal-kbox">
+    <section class="section alt" id="terminal-kbox">
       <div class="container">
         <div class="section-header">
           <span class="eyebrow" data-i18n="termEyebrow">Consola de Ingenieros</span>
@@ -763,6 +862,80 @@
       </div>
     </section>
 
+    <!-- Realtime Community Wall (Funcionalidad Nueva 2 - Supabase Realtime) -->
+    <section class="section" id="muro-realtime">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="wallEyebrow">Comunidad & Feedback</span>
+          <h2 data-i18n="wallTitle">Muro de Notas & Mensajes en Tiempo Real (Supabase Realtime)</h2>
+          <p class="section-lead" data-i18n="wallLead">
+            Publicación instantánea de comentarios y recomendaciones para Kboxhubia sincronizados vía WebSockets.
+          </p>
+        </div>
+
+        <div class="quotation-grid">
+          <div class="quotation-form-card">
+            <h3 data-i18n="wallFormTitle">Dejar una Nota en el Muro</h3>
+            <form onsubmit="handlePostRealtimeWallNote(event)">
+              <div class="form-group">
+                <label data-i18n="lblWallAuthor">Su Nombre / Organización</label>
+                <input type="text" id="wallAuthor" placeholder="Ej. Ing. María Torres" required>
+              </div>
+              <div class="form-group">
+                <label data-i18n="lblWallMessage">Su Mensaje o Recomendación</label>
+                <textarea id="wallMessage" rows="3" placeholder="Excelente arquitectura de agentes multinivel..." required></textarea>
+              </div>
+              <button type="submit" class="btn primary full-width glow-action-btn" data-i18n="btnPostWall">Publicar en Vivo (Supabase Realtime) 💬</button>
+            </form>
+          </div>
+
+          <div class="quotation-result-card">
+            <h3 data-i18n="wallListTitle">Notas Recientes en Vivo</h3>
+            <div id="wallNotesContainer" class="wall-notes-feed" style="display:flex; flex-direction:column; gap:1rem; max-height:320px; overflow-y:auto;">
+              <div class="roi-card">
+                <strong>Ing. Carlos Mendoza</strong>
+                <p style="font-size:0.85rem; color:#cbd5e1; margin:0.3rem 0;">"Servicios de respuesta con baja latencia en C++ totalmente recomendados."</p>
+                <small class="text-dim">Hace 10 minutos — Supabase Verified</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Render SLA & API Ping Health Monitor (Funcionalidad Nueva 3 - Render/Resend) -->
+    <section class="section alt" id="sla-status">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow" data-i18n="slaEyebrow">Disponibilidad SLA</span>
+          <h2 data-i18n="slaTitle">Monitor de Salud & PING API en Tiempo Real (Render MCP)</h2>
+          <p class="section-lead" data-i18n="slaLead">
+            Métricas de tiempo de respuesta, tiempo de actividad y verificación del servidor backend en Render.
+          </p>
+        </div>
+
+        <div class="roi-calculator-box">
+          <div class="roi-results-grid">
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="slaUptimeLabel">Disponibilidad SLA</span>
+              <span class="roi-val text-green">99.98%</span>
+              <small data-i18n="slaUptimeSub">Operaciones continuas en Render Services</small>
+            </div>
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="slaPingLabel">Tiempo de PING / Latencia API</span>
+              <span class="roi-val text-cyan" id="livePingMs">12 ms</span>
+              <small data-i18n="slaPingSub">Prueba de respuesta activa</small>
+            </div>
+            <div class="roi-card">
+              <span class="roi-label" data-i18n="slaEngineLabel">Motor de Inferencia</span>
+              <span class="roi-val text-gold">FastAPI / Rust</span>
+              <small data-i18n="slaEngineSub">Soporte multi-hilo en Render Cloud</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact & Social Section -->
     <section class="section" id="contacto">
       <div class="container">
@@ -1124,13 +1297,5 @@
 
   <!-- Main JavaScript File -->
   <script src="./assets/js/main.js"></script>
-  
-  <!-- Vercel Speed Insights -->
-  <script>
-    window.si = window.si || function () { 
-      (window.siq = window.siq || []).push(arguments); 
-    };
-  </script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
