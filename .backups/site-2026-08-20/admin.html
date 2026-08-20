@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Kboxhubia</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="/">Kboxhubia</a>
+      <nav class="nav">
+        <a href="/">Home</a>
+        <a href="/about.html">Sobre mí</a>
+        <a href="/services.html">Servicios</a>
+        <a href="/projects.html">Proyectos</a>
+        <a href="/blog/index.html">Publicaciones</a>
+        <a href="/contact.html">Contacto</a>
+        <a href="/admin.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Panel privado</span>
+          <h2>Respaldo, carga y operaciones del portal</h2>
+          <p>Gestiona copias de seguridad, comparte archivos privados y revisa el estado del sitio.</p>
+        </div>
+
+        <div class="platform-grid">
+          <div class="platform-panel">
+            <h3>Respaldo diario del sitio</h3>
+            <ul class="feature-list">
+              <li><span>Copia completa del portal</span><span class="badge">Activo</span></li>
+              <li><span>Instantánea por fecha</span><span class="badge">Diario</span></li>
+              <li><span>Versión latest para restauración rápida</span><span class="badge">Seguro</span></li>
+              <li><span>Sin incluir .git ni carpetas temporales</span><span class="badge">Limpio</span></li>
+            </ul>
+            <div class="cta-row">
+              <a class="btn primary" href="/docs/integracion-servicios.md">Ver guía</a>
+              <a class="btn ghost" href="/scripts/backup-site.sh">Script de respaldo</a>
+            </div>
+          </div>
+
+          <div class="platform-panel">
+            <h3>Subida privada de archivos</h3>
+            <form id="privateUploadForm" class="upload-box">
+              <input id="privateFiles" type="file" multiple>
+              <button class="btn primary" type="submit">Guardar archivos locales</button>
+            </form>
+            <div id="uploadSummary" class="upload-summary"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="upload-panel">
+          <div>
+            <span class="eyebrow">Integración recomendada</span>
+            <h3>Para carga real y privada, conecta Supabase Storage</h3>
+            <p>La carga local del navegador es útil para pruebas y gestión rápida, pero para almacenamiento serio y privado debes conectarlo con Supabase, S3 o Google Drive con acceso autenticado.</p>
+            <ul>
+              <li>Subida segura con autenticación.</li>
+              <li>Lista de archivos por carpeta y permisos.</li>
+              <li>Rutas privadas y backups por proyecto.</li>
+            </ul>
+          </div>
+          <div class="upload-summary">
+            <p><strong>Recomendación operativa</strong></p>
+            <ul>
+              <li>Usa Supabase para archivos privados.</li>
+              <li>Usa GitHub Actions para backup automático.</li>
+              <li>Usa ntfy para avisos en escritorio.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span data-year></span> Jorge Huerta — Kboxhubia</p>
+    </div>
+  </footer>
+
+  <script>
+    // Strict Guard Script for Admin Panel Access
+    (function checkAdminAccess() {
+      const isLoggedSession = sessionStorage.getItem('kbox_admin_logged') === 'true';
+      const isLoggedLocal = localStorage.getItem('kbox_admin_logged') === 'true';
+
+      if (!isLoggedSession && !isLoggedLocal) {
+        alert('⛔ Acceso no autorizado: Debe registrarse e iniciar sesión en el modal de Admin de la página principal antes de ingresar al panel.');
+        window.location.href = 'index.html#adminAuthModal';
+      }
+    })();
+  </script>
+  <script src="./assets/js/main.js"></script>
+  
+  <!-- Vercel Speed Insights -->
+  <script>
+    window.si = window.si || function () { 
+      (window.siq = window.siq || []).push(arguments); 
+    };
+  </script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
