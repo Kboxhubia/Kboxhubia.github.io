@@ -4,32 +4,33 @@
    ========================================================================== */
 
 :root {
-  --bg-primary: #0a0d14;
-  --bg-secondary: #101522;
-  --bg-card: #151c2e;
-  --bg-card-hover: #1c263e;
-  --border-color: #232f48;
-  --border-highlight: #3b82f6;
+  --bg-primary: #07090e;
+  --bg-secondary: #0e121e;
+  --bg-card: rgba(18, 24, 40, 0.75);
+  --bg-card-hover: rgba(28, 38, 62, 0.85);
+  --border-color: rgba(45, 62, 95, 0.6);
+  --border-highlight: #38bdf8;
 
-  --text-primary: #f1f5f9;
-  --text-secondary: #94a3b8;
+  --text-primary: #f8fafc;
+  --text-secondary: #a0aec0;
   --text-muted: #64748b;
 
   --accent-cyan: #38bdf8;
   --accent-blue: #3b82f6;
-  --accent-purple: #8b5cf6;
+  --accent-purple: #a855f7;
   --accent-emerald: #10b981;
   --accent-amber: #f59e0b;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'Fira Code', monospace;
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
 
-  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 25px rgba(56, 189, 248, 0.15);
+  --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 30px rgba(56, 189, 248, 0.2);
+  --shadow-purple-glow: 0 0 30px rgba(168, 85, 247, 0.25);
 }
 
 /* Reset & Base */
@@ -677,19 +678,21 @@ a:hover {
 
 .service-card {
   background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 2rem;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
 }
 
 .service-card:hover {
   border-color: var(--border-highlight);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-subtle);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-glow), var(--shadow-subtle);
 }
 
 .service-number {
@@ -1478,7 +1481,11 @@ a:hover {
 
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
   }
 
   .nav {
@@ -1492,6 +1499,7 @@ a:hover {
     flex-direction: column;
     padding: 1.5rem;
     gap: 1rem;
+    box-shadow: var(--shadow-subtle);
   }
 
   .nav.open {
@@ -1504,5 +1512,37 @@ a:hover {
 
   .hero-metrics-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-row-grid, .option-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 94%;
+  }
+
+  .hero-title {
+    font-size: 1.95rem;
+  }
+
+  .cta-row {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .cafe-widget-launcher {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.6rem 1rem;
+  }
+
+  .launcher-sub {
+    display: none;
   }
 }
