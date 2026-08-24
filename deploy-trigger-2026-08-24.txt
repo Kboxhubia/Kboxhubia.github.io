@@ -1,0 +1,5 @@
+Trigger deploy: Commit realizado por Copilot para activar el workflow de GitHub Pages.
+
+Timestamp: 2026-08-24T16:07:20Z
+
+Este archivo fue agregado automáticamente para forzar un push a la rama main y ejecutar el workflow `Deploy GitHub Pages`, que incluye el paso para cancelar despliegues en progreso antes de publicar.
