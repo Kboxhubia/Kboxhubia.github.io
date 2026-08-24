@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: pages-deploy-${{ github.repository }}-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -33,6 +33,24 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
+
+      - name: Cancelar despliegue Pages en progreso (si existe)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          API="https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/deployments"
+          DEPLOY_ID=$(curl -sSL -H "Authorization: token ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" "${API}" \
+            | jq -r '.[] | select(.state=="in_progress") | .id' | head -n1 || true)
+          if [ -n "${DEPLOY_ID}" ] && [ "${DEPLOY_ID}" != "null" ]; then
+            echo "Found in-progress Pages deployment ${DEPLOY_ID}. Cancelling..."
+            curl -sSL -X POST -H "Authorization: token ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \
+              "${API}/${DEPLOY_ID}/cancel"
+            echo "Cancel request sent for deployment ${DEPLOY_ID}"
+            sleep 3
+          else
+            echo "No in-progress Pages deployment found."
+          fi
 
       - name: Deploy to GitHub Pages
         id: deployment
