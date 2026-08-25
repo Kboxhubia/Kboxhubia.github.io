@@ -29,12 +29,41 @@
 
       <nav class="nav" id="main-nav">
         <a href="#inicio" class="nav-link active">Inicio</a>
-        <a href="#perfil" class="nav-link">Perfil</a>
-        <a href="#servicios" class="nav-link">Servicios & Arch</a>
-        <a href="#cotizador-ia" class="nav-link">Cotizador IA</a>
-        <a href="#simulador-roi" class="nav-link">Simulador ROI</a>
-        <a href="#terminal-kbox" class="nav-link">Kbox OS</a>
-        <a href="#proyectos" class="nav-link">Proyectos</a>
+
+        <div class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" type="button" aria-expanded="false">
+            Perfil &amp; Stack <span class="dropdown-caret">▾</span>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#perfil" class="dropdown-item">Perfil Profesional</a>
+            <a href="#stack" class="dropdown-item">Stack Tecnológico</a>
+            <a href="#whitepapers" class="dropdown-item">Whitepapers &amp; Docs</a>
+          </div>
+        </div>
+
+        <div class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" type="button" aria-expanded="false">
+            Servicios &amp; Cotizador <span class="dropdown-caret">▾</span>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#servicios" class="dropdown-item">Servicios Core</a>
+            <a href="#cotizador-ia" class="dropdown-item">Cotizador IA &amp; UML</a>
+            <a href="#simulador-roi" class="dropdown-item">Simulador ROI</a>
+          </div>
+        </div>
+
+        <div class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" type="button" aria-expanded="false">
+            Plataforma &amp; Herramientas <span class="dropdown-caret">▾</span>
+          </button>
+          <div class="dropdown-menu">
+            <a href="#terminal-kbox" class="dropdown-item">Kbox OS Shell</a>
+            <a href="#tracking-proyectos" class="dropdown-item">Portal Clientes (Linear)</a>
+            <a href="#mcp-agentes" class="dropdown-item">Ecosistema MCP &amp; Dashboard</a>
+            <a href="#proyectos" class="dropdown-item">Portafolio GitHub</a>
+          </div>
+        </div>
+
         <a href="#contacto" class="nav-link">Contacto</a>
       </nav>
 
@@ -58,6 +87,29 @@
   <main>
     <!-- Hero Section -->
     <section class="hero" id="inicio">
+      <!-- Top Advertising Carousel Banner -->
+      <div class="hero-ad-carousel" id="heroAdCarousel">
+        <div class="ad-slide active" data-ad="1">
+          <span class="ad-badge">PROMO 2026 🚀</span>
+          <span class="ad-text"><strong>Arquitectura Agéntica C2C & MCP:</strong> Automatización empresarial con enjambres de IA autónomos.</span>
+          <a href="#cotizador-ia" class="ad-link">Cotizar Proyecto &rarr;</a>
+        </div>
+        <div class="ad-slide" data-ad="2">
+          <span class="ad-badge">HIGH PERFORMANCE ⚡</span>
+          <span class="ad-text"><strong>Desarrollo Backend Nativo:</strong> Microservicios ultra-rápidos en C++, Rust y Go con latencia &lt; 20ms.</span>
+          <a href="#simulador-roi" class="ad-link">Calcular ROI &rarr;</a>
+        </div>
+        <div class="ad-slide" data-ad="3">
+          <span class="ad-badge">CAFÉ VIRTUAL ☕</span>
+          <span class="ad-text"><strong>Asesoría Directa 1:1:</strong> Agenda tu sesión de estrategia técnica directamente con el Ing. Jorge Huerta.</span>
+          <button class="ad-link-btn" onclick="toggleVirtualCafeModal(true)">Agendar Cita &rarr;</button>
+        </div>
+        <div class="ad-controls">
+          <button class="ad-prev" onclick="changeAdSlide(-1)">&lsaquo;</button>
+          <button class="ad-next" onclick="changeAdSlide(1)">&rsaquo;</button>
+        </div>
+      </div>
+
       <div class="container hero-grid">
         <div class="hero-content">
           <div class="status-badge">
@@ -107,7 +159,32 @@
         </div>
 
         <div class="hero-art-container">
-          <div class="terminal-card">
+          <!-- Animated 35s Interactive Profile Video Card -->
+          <div class="profile-video-card" id="profileVideoCard">
+            <div class="video-header">
+              <div class="video-badge-live">● VIDEO EN VIVO (35s MÁX)</div>
+              <span class="video-timer" id="videoTimer">00:35</span>
+            </div>
+            <div class="video-player-wrapper">
+              <div class="video-avatar-overlay" id="videoAvatarOverlay">
+                <img src="./assets/images/foto-jorge-huerta.png" alt="Ing. Jorge Huerta - Video Presentación" class="video-avatar-img">
+                <div class="sound-waves">
+                  <span></span><span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="video-caption-box" id="videoCaptionBox">
+                <p class="caption-text">"Hola, soy el Ing. Jorge Huerta. Bienvenido a mi ecosistema de Inteligencia Artificial, Agentes Multinivel y Desarrollo DeepTech."</p>
+              </div>
+            </div>
+            <div class="video-controls">
+              <button class="btn-video-action" id="playVideoBtn" onclick="toggleProfileVideoPlay()">
+                <span class="play-icon">▶</span> <span id="playVideoText">Reproducir Video Presentación</span>
+              </button>
+              <span class="video-quality-tag">1080p HD • IA Sound</span>
+            </div>
+          </div>
+
+          <div class="terminal-card" style="margin-top: 1.5rem;">
             <div class="terminal-header">
               <span class="dot red"></span>
               <span class="dot yellow"></span>

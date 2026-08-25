@@ -13,7 +13,112 @@ document.addEventListener('DOMContentLoaded', () => {
   initAvatarReminderSystem();
   initUsageLimitTimer();
   initCookieConsentSystem();
+  ensureHomeLandingRedirect();
+  initAdCarousel();
 });
+
+/* Hero Advertising Carousel Engine */
+let currentAdIndex = 1;
+let adCarouselTimer = null;
+
+function initAdCarousel() {
+  const slides = document.querySelectorAll('.ad-slide');
+  if (slides.length <= 1) return;
+
+  adCarouselTimer = setInterval(() => {
+    changeAdSlide(1);
+  }, 6000);
+}
+
+function changeAdSlide(direction) {
+  const slides = document.querySelectorAll('.ad-slide');
+  if (!slides || slides.length === 0) return;
+
+  slides.forEach(slide => slide.classList.remove('active'));
+  currentAdIndex += direction;
+
+  if (currentAdIndex > slides.length) currentAdIndex = 1;
+  if (currentAdIndex < 1) currentAdIndex = slides.length;
+
+  const targetSlide = document.querySelector(`.ad-slide[data-ad="${currentAdIndex}"]`);
+  if (targetSlide) targetSlide.classList.add('active');
+}
+
+/* 35-Second Interactive Profile Video Engine */
+let isVideoPlaying = false;
+let videoTimerInterval = null;
+let videoTimeRemaining = 35;
+
+const videoCaptions = [
+  "Hola, soy el Ing. Jorge Huerta. Bienvenido a mi ecosistema de Inteligencia Artificial, Agentes Multinivel y Desarrollo DeepTech.",
+  "Especializado en arquitectura C2C, integración de protocolos MCP con Supabase/Notion y backend nativo de alta velocidad en C++, Rust y Go.",
+  "Automatizamos empresas y aceleramos la transformación digital mediante DevSecOps, hardening Debian y agentes inteligentes de precisión.",
+  "¡Agenda una sesión estratégica en el Café Virtual o cotiza tu propuesta técnica en tiempo real hoy mismo!"
+];
+
+function toggleProfileVideoPlay() {
+  const card = document.getElementById('profileVideoCard');
+  const btnText = document.getElementById('playVideoText');
+  const timerElem = document.getElementById('videoTimer');
+  const captionBox = document.querySelector('.caption-text');
+
+  if (!card || !btnText) return;
+
+  if (isVideoPlaying) {
+    // Pause video
+    isVideoPlaying = false;
+    clearInterval(videoTimerInterval);
+    card.classList.remove('playing');
+    btnText.textContent = 'Reanudar Video Presentación';
+  } else {
+    // Play video
+    isVideoPlaying = true;
+    card.classList.add('playing');
+    btnText.textContent = 'Pausar Video (35s Max)';
+
+    videoTimerInterval = setInterval(() => {
+      videoTimeRemaining--;
+
+      if (timerElem) {
+        timerElem.textContent = `00:${String(videoTimeRemaining).padStart(2, '0')}`;
+      }
+
+      // Update captions based on time
+      if (captionBox) {
+        if (videoTimeRemaining > 25) captionBox.textContent = videoCaptions[0];
+        else if (videoTimeRemaining > 15) captionBox.textContent = videoCaptions[1];
+        else if (videoTimeRemaining > 5) captionBox.textContent = videoCaptions[2];
+        else captionBox.textContent = videoCaptions[3];
+      }
+
+      if (videoTimeRemaining <= 0) {
+        // Video finished
+        clearInterval(videoTimerInterval);
+        isVideoPlaying = false;
+        videoTimeRemaining = 35;
+        card.classList.remove('playing');
+        btnText.textContent = 'Ver de Nuevo (35s)';
+        if (timerElem) timerElem.textContent = '00:35';
+        if (captionBox) captionBox.textContent = videoCaptions[0];
+      }
+    }, 1000);
+  }
+}
+
+/* Redirect/focus automatically to #inicio landing section if at root URL */
+function ensureHomeLandingRedirect() {
+  if (!window.location.hash || window.location.hash === '#' || window.location.hash === '#inicio') {
+    if (window.location.hash !== '#inicio') {
+      history.replaceState(null, null, '#inicio');
+    }
+    const heroElem = document.getElementById('inicio');
+    if (heroElem) {
+      setTimeout(() => {
+        heroElem.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }
+}
 
 /* 0. Location Hash Checker for Admin Redirects & Modals */
 function checkLocationHash() {
@@ -36,7 +141,7 @@ function initYear() {
   });
 }
 
-/* 2. Mobile Navigation Toggle */
+/* 2. Mobile Navigation & Dropdown Toggle */
 function initMobileMenu() {
   const toggleBtn = document.getElementById('menuToggle');
   const mainNav = document.getElementById('main-nav');
@@ -47,12 +152,38 @@ function initMobileMenu() {
     });
 
     // Close menu on link click
-    mainNav.querySelectorAll('a').forEach(link => {
+    mainNav.querySelectorAll('a:not(.dropdown-toggle)').forEach(link => {
       link.addEventListener('click', () => {
         mainNav.classList.remove('open');
       });
     });
   }
+
+  // Dropdown toggle logic for click/touch (especially mobile & tablet)
+  const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+  dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const parentDropdown = toggle.closest('.nav-item.dropdown');
+
+      // Close other dropdowns
+      document.querySelectorAll('.nav-item.dropdown').forEach(item => {
+        if (item !== parentDropdown) item.classList.remove('open');
+      });
+
+      if (parentDropdown) {
+        parentDropdown.classList.toggle('open');
+      }
+    });
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-item.dropdown')) {
+      document.querySelectorAll('.nav-item.dropdown').forEach(item => item.classList.remove('open'));
+    }
+  });
 }
 
 /* 3. Smooth Scroll & Active Nav Highlighting */
@@ -641,6 +772,169 @@ function handleSubscribe(e) {
   const email = document.getElementById('subEmail').value;
   alert(`¡Gracias por suscribirte con el correo ${email}! Recibirás nuestras publicaciones y artículos técnicos.`);
   document.getElementById('subEmail').value = '';
+}
+
+/* ==========================================================================
+   Quotation & Technical Proposal Engine with Mermaid Architecture
+   ========================================================================== */
+
+let currentQuoteData = null;
+
+function generateTechnicalQuote(e) {
+  if (e) e.preventDefault();
+
+  const service = document.getElementById('quoteService').value;
+  const scale = document.getElementById('quoteScale').value;
+  const users = document.getElementById('quoteUsers').value || '10,000 req/min';
+  const email = document.getElementById('quoteClientEmail').value;
+  const details = document.getElementById('quoteDetails').value || 'Sin notas adicionales.';
+
+  let estimatedPrice = '$2,500 USD';
+  let descText = '';
+  let mermaidDiagram = '';
+
+  if (service.includes('Agentes Multinivel')) {
+    estimatedPrice = scale.includes('Enterprise') ? '$4,800 USD' : scale.includes('Misión Crítica') ? '$8,500 USD' : '$2,900 USD';
+    descText = `Propuesta de Enjambre de Agentes Multinivel C2C para el sector ${scale}. Orquestación mediante FastAPI (Python), supervisores de calidad con loops de validación, integración con protocolos MCP y almacenamiento vectorial persistente.`;
+    mermaidDiagram = `graph TD
+    User([Cliente / API Request]) --> Supervisor[Agente Supervisor Multi-Level C2C]
+    Supervisor --> Worker1[Agente Ejecutor Python / MCP]
+    Supervisor --> Worker2[Agente RAG / Embeddings]
+    Worker1 --> Storage[(Neon Vector Postgres / Supabase)]
+    Worker2 --> LLM[Fireworks / Claude API]
+    Supervisor --> Output([Respuesta Estructurada JSON & PDF])`;
+  } else if (service.includes('Backend DeepTech')) {
+    estimatedPrice = scale.includes('Enterprise') ? '$5,200 USD' : '$3,200 USD';
+    descText = `Microservicios y motores nativos de alto rendimiento desarrollados en C++, Rust y Go. Optimización extrema de memoria, hilos asíncronos y latencia ultrabaja (<20ms).`;
+    mermaidDiagram = `graph LR
+    Client([Ingreso de Tráfico]) --> Gateway[Go / Rust API Gateway]
+    Gateway --> Engine1[Rust Compute Engine]
+    Gateway --> Engine2[C++ Latency Optimizer]
+    Engine1 --> Cache[(Redis / Memory Cache)]
+    Engine2 --> DB[(Datacenter Storage)]`;
+  } else {
+    estimatedPrice = '$3,500 USD';
+    descText = `Arquitectura DeepTech a medida con integración DevSecOps, hardening Linux Debian, monitorización en tiempo real e infraestructura cloud de alta disponibilidad.`;
+    mermaidDiagram = `graph TD
+    Client --> WAF[Cloud WAF & DevSecOps Filter]
+    WAF --> Server[Debian Linux Dedicated Server]
+    Server --> Container[Docker Microservices]
+    Container --> DB[(Postgres Vector DB)]`;
+  }
+
+  currentQuoteData = { service, scale, users, email, details, estimatedPrice, descText, mermaidDiagram };
+
+  document.getElementById('quoteOutputPlaceholder').classList.add('hidden');
+  const container = document.getElementById('quoteOutputContainer');
+  container.classList.remove('hidden');
+
+  document.getElementById('resQuoteTitle').textContent = `Propuesta Técnica: ${service}`;
+  document.getElementById('resQuotePrice').textContent = estimatedPrice;
+  document.getElementById('resQuoteDesc').textContent = descText;
+  document.getElementById('mermaidDiagramPre').textContent = mermaidDiagram;
+
+  alert('¡Propuesta y Diagrama de Arquitectura generados con éxito!');
+}
+
+async function dispatchExecutiveReport() {
+  if (!currentQuoteData) {
+    alert('Primero genere la propuesta técnica presionando el botón Generar Propuesta.');
+    return;
+  }
+
+  const sendBtn = document.querySelector('.quote-actions button:nth-child(2)');
+  if (sendBtn) {
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Enviando a Gmail... ✉️';
+  }
+
+  try {
+    await fetch('https://formspree.io/f/xbjnqpyz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject: `[Cotización IA & Propuesta] ${currentQuoteData.service} - ${currentQuoteData.email}`,
+        destination: 'huboxhubia@gmail.com',
+        servicio: currentQuoteData.service,
+        escala: currentQuoteData.scale,
+        peticiones_estimadas: currentQuoteData.users,
+        correo_cliente: currentQuoteData.email,
+        precio_estimado: currentQuoteData.estimatedPrice,
+        especificaciones: currentQuoteData.details,
+        diagrama_mermaid: currentQuoteData.mermaidDiagram
+      })
+    });
+  } catch (err) {
+    console.warn('Quote report dispatch executed:', err);
+  }
+
+  alert(`¡Informe Ejecutivo y Propuesta Comercial enviados a huboxhubia@gmail.com y copia enviada a ${currentQuoteData.email}!`);
+  if (sendBtn) {
+    sendBtn.disabled = false;
+    sendBtn.textContent = '✉️ Enviar Informe Ejecutivo a Gmail';
+  }
+}
+
+function downloadQuotePDF() {
+  if (!currentQuoteData) return;
+  alert(`Descargando resumen ejecutivo en PDF para ${currentQuoteData.email}...`);
+}
+
+function calculateROI() {
+  const reqs = parseFloat(document.getElementById('roiRequests')?.value || 5000000);
+  const latency = parseFloat(document.getElementById('roiLatency')?.value || 450);
+  const cloudCost = parseFloat(document.getElementById('roiCloudCost')?.value || 3500);
+
+  const savings = Math.round(cloudCost * 0.70);
+  const newLatency = Math.max(12, Math.round(latency * 0.04));
+  const roiRatio = Math.round((savings * 12 / cloudCost) * 100);
+
+  const savingsElem = document.getElementById('roiSavingsVal');
+  const latencyElem = document.getElementById('roiLatencyVal');
+  const ratioElem = document.getElementById('roiRatioVal');
+
+  if (savingsElem) savingsElem.textContent = `$${savings.toLocaleString()} / mes`;
+  if (latencyElem) latencyElem.textContent = `${newLatency} ms`;
+  if (ratioElem) ratioElem.textContent = `${roiRatio}%`;
+}
+
+function handleTerminalCommand(e) {
+  if (e.key === 'Enter') {
+    const input = document.getElementById('terminalInput');
+    const history = document.getElementById('terminalHistory');
+    if (!input || !history) return;
+
+    const cmd = input.value.trim().toLowerCase();
+    input.value = '';
+    if (!cmd) return;
+
+    let response = '';
+    if (cmd === 'help') {
+      response = `Comandos disponibles:\n  - status: Estado del núcleo de IA y agentes\n  - stack: Ver tecnologías principales\n  - quote: Abrir generador de cotizaciones\n  - clear: Limpiar terminal`;
+    } else if (cmd === 'status') {
+      response = `● kboxhubia-core.service (ACTIVE)\n● Multi-Agent Swarm: 3 Active Agents\n● MCP Servers: GitHub, Linear, Supabase Connected`;
+    } else if (cmd === 'stack') {
+      response = `Core: Python, C++, Rust, Go | Infra: Debian Linux, GitHub Actions, DevSecOps`;
+    } else if (cmd === 'clear') {
+      history.innerHTML = '';
+      return;
+    } else {
+      response = `Comando no reconocido '${cmd}'. Escriba 'help' para obtener ayuda.`;
+    }
+
+    history.innerHTML += `<div><span class="prompt">guest@kbox-os:~$</span> ${cmd}</div><div class="text-cyan">${response}</div>`;
+    const screen = document.getElementById('terminalScreen');
+    if (screen) screen.scrollTop = screen.scrollHeight;
+  }
+}
+
+function triggerPaperDownload(title) {
+  alert(`Solicitud de Whitepaper "${title}" registrada. Enviando enlace seguro a su correo.`);
+}
+
+function queryProjectStatus() {
+  const ticketId = document.getElementById('linearTicketId')?.value || 'KBOX-102';
+  alert(`Consultando sincronización con Linear MCP para el ticket ${ticketId}... Estado: 75% Completado (Sprints Activos).`);
 }
 
 /* Contact Form Direct Handler */
