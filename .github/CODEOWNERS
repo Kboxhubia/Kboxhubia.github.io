@@ -1,0 +1,5 @@
+# CODEOWNERS
+# Asigna al propietario principal del repositorio para revisión y seguridad
+
+# Formato: "ruta @owner". El asterisco (*) aplica a todo el repositorio.
+* @Kboxhubia
