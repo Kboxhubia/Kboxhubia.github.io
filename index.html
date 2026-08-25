@@ -863,22 +863,6 @@
       </div>
     </section>
 
-    <!-- Subscriptions & Publications Area -->
-    <section class="section alt" id="suscripcion">
-      <div class="container">
-        <div class="newsletter-card">
-          <div class="newsletter-info">
-            <span class="eyebrow" data-i18n="subEyebrow">Comunidad & Publicaciones</span>
-            <h3 data-i18n="subTitle">Suscríbete a Publicaciones, Artículos, Muros y Proyectos DeepTech</h3>
-            <p data-i18n="subDesc">Recibe actualizaciones sobre nuevos agentes, artículos técnicos, documentos de arquitectura y lanzamientos multimedia en tu correo.</p>
-          </div>
-          <form id="subscribeForm" class="subscribe-form" onsubmit="handleSubscribe(event)">
-            <input type="email" id="subEmail" placeholder="tu-correo@empresa.com" required>
-            <button type="submit" class="btn primary" data-i18n="subBtn">Suscribirme Gratis</button>
-          </form>
-        </div>
-      </div>
-    </section>
   </main>
 
   <!-- Cafe Virtual AI Assistant Floating Widget & Modal Container -->
@@ -1112,12 +1096,94 @@
     </div>
   </div>
 
-  <!-- Cookie Consent & Analytics Notification Bar -->
+  <!-- Avatar Floating Toast Reminder (Non-blocking) -->
+  <div class="avatar-toast-reminder hidden" id="avatarSubscribeToast">
+    <div class="toast-avatar-thumb">
+      <img src="./assets/images/foto-jorge-huerta.png" alt="Ing. Jorge Huerta">
+      <span class="online-dot"></span>
+    </div>
+    <div class="toast-body">
+      <div class="toast-title">
+        <span>☕ Recordatorio de suscripción</span>
+        <button class="toast-close-btn" onclick="hideAvatarToast()">&times;</button>
+      </div>
+      <p>¡Suscríbete para recibir actualizaciones exclusivas de IA, MCP y DeepTech en tu correo!</p>
+      <form class="toast-form" onsubmit="handleAvatarToastSubscribe(event)">
+        <input type="email" id="toastSubEmail" placeholder="tu-correo@empresa.com" required>
+        <button type="submit" class="btn primary sm">Suscribirme</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5-Minute Usage Limit Mandatory Subscription Modal (Blocking) -->
+  <div class="modal-overlay blocking-modal" id="timeLimitModal">
+    <div class="modal-content limit-modal-box">
+      <div class="modal-header">
+        <div class="agent-avatar-header">
+          <div class="avatar-circle">⏳</div>
+          <div>
+            <h4>Tiempo de uso continuo completado (5 minutos)</h4>
+            <span class="status-online" style="color: #f59e0b;">● Límite de sesión alcanzado</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="chat-bubble agent" style="margin-bottom: 1.25rem;">
+          <p>¡Gracias por explorar la plataforma de <strong>Ing. Jorge Huerta — Kboxhubia</strong>!</p>
+          <p>Has alcanzado el tiempo máximo de navegación libre (5 minutos). Para desbloquear el acceso continuo a los recursos, cotizador e interactividad, ingresa tu correo electrónico a continuación:</p>
+        </div>
+        <form onsubmit="handleTimeLimitSubscribe(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="limitSubEmail">Correo Electrónico</label>
+            <input type="email" id="limitSubEmail" placeholder="tu-correo@empresa.com" required>
+          </div>
+          <button type="submit" class="btn primary full-width glow-action-btn">Desbloquear Navegación & Suscribirme 🔓</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Consent & Analytics Notification Bar (Professional GDPR Compliant) -->
   <div class="cookie-banner" id="cookieBanner">
     <div class="cookie-content">
-      <p>🍪 Este sitio utiliza cookies y analíticas de navegación para registrar métricas de uso y ofrecer una experiencia personalizada. Al continuar, usted acepta nuestra política de privacidad.</p>
+      <div class="cookie-text">
+        <span>🍪 <strong>Gestión de Cookies & Privacidad</strong></span>
+        <p>Utilizamos cookies propias y de terceros para optimizar la navegación, medir el rendimiento y personalizar su experiencia. Puede aceptar todas las cookies, rechazar las no esenciales o personalizar sus preferencias.</p>
+      </div>
       <div class="cookie-buttons">
-        <button class="btn primary" onclick="acceptCookies()">Aceptar Cookies & Analytics</button>
+        <button class="btn outline sm" onclick="rejectNonEssentialCookies()">Rechazar No Esenciales</button>
+        <button class="btn secondary sm" onclick="openCookiePrefsModal()">Configurar</button>
+        <button class="btn primary sm" onclick="acceptAllCookies()">Aceptar Todas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Preferences Customization Modal -->
+  <div class="modal-overlay" id="cookiePrefsModal">
+    <div class="modal-content auth-modal-box">
+      <div class="modal-header">
+        <h4>🍪 Configuración de Preferencias de Cookies</h4>
+        <button class="modal-close-btn" onclick="toggleCookiePrefsModal(false)">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="auth-notice">Seleccione los tipos de cookies que autoriza utilizar en este portal:</p>
+        <div class="cookie-prefs-list" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+          <label style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-secondary); padding: 0.75rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <div>
+              <strong style="display: block; font-size: 0.95rem;">Cookies Necesarias (Técnicas)</strong>
+              <small style="color: var(--text-muted);">Requeridas para el funcionamiento básico y seguridad del sitio.</small>
+            </div>
+            <input type="checkbox" checked disabled>
+          </label>
+          <label style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-secondary); padding: 0.75rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <div>
+              <strong style="display: block; font-size: 0.95rem;">Analíticas & Rendimiento</strong>
+              <small style="color: var(--text-muted);">Medición de tráfico y Speed Insights (Vercel Analytics).</small>
+            </div>
+            <input type="checkbox" id="prefAnalytics" checked>
+          </label>
+        </div>
+        <button type="button" class="btn primary full-width" onclick="saveCookiePreferences()">Guardar Preferencias</button>
       </div>
     </div>
   </div>

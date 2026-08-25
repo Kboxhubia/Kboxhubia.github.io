@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguageToggle();
   fetchGitHubRepos();
   checkLocationHash();
+  initAvatarReminderSystem();
+  initUsageLimitTimer();
+  initCookieConsentSystem();
 });
 
 /* 0. Location Hash Checker for Admin Redirects & Modals */
@@ -682,16 +685,196 @@ async function handleDirectContactForm(e) {
   document.getElementById('contactForm').reset();
 }
 
-/* Cookie Consent */
-function checkCookieConsent() {
+/* ==========================================================================
+   Avatar Floating Toast & Interactive Reminders (15s Loop & Interaction Triggers)
+   ========================================================================== */
+
+let toastInterval = null;
+
+function initAvatarReminderSystem() {
+  if (localStorage.getItem('kbox_user_subscribed') === 'true') {
+    return; // User already subscribed, disable reminders
+  }
+
+  // Set 15-second interval timer
+  toastInterval = setInterval(() => {
+    showAvatarToast();
+  }, 15000);
+
+  // Attach click trigger to interactive avatar elements & option buttons
+  const avatarImgs = document.querySelectorAll('.profile-avatar-container, .cafe-widget-launcher, .opt-btn');
+  avatarImgs.forEach(elem => {
+    elem.addEventListener('click', () => {
+      if (localStorage.getItem('kbox_user_subscribed') !== 'true') {
+        showAvatarToast();
+      }
+    });
+  });
+}
+
+function showAvatarToast() {
+  if (localStorage.getItem('kbox_user_subscribed') === 'true') return;
+  const toast = document.getElementById('avatarSubscribeToast');
+  if (toast) {
+    toast.classList.remove('hidden');
+  }
+}
+
+function hideAvatarToast() {
+  const toast = document.getElementById('avatarSubscribeToast');
+  if (toast) {
+    toast.classList.add('hidden');
+  }
+}
+
+function handleAvatarToastSubscribe(e) {
+  e.preventDefault();
+  const emailInput = document.getElementById('toastSubEmail');
+  if (!emailInput || !emailInput.value) return;
+
+  const email = emailInput.value.trim();
+  localStorage.setItem('kbox_user_subscribed', 'true');
+  localStorage.setItem('kbox_subscriber_email', email);
+
+  if (toastInterval) clearInterval(toastInterval);
+  hideAvatarToast();
+
+  // Dispatch notification to huboxhubia@gmail.com
+  try {
+    fetch('https://formspree.io/f/xbjnqpyz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject: `[Nueva Suscripción Toast Avatar] ${email}`,
+        destination: 'huboxhubia@gmail.com',
+        correo_suscriptor: email,
+        origen: 'Avatar Toast Reminder (15s)',
+        timestamp: new Date().toISOString()
+      })
+    });
+  } catch (err) {
+    console.warn('Toast subscribe dispatch:', err);
+  }
+
+  alert(`¡Gracias por suscribirte (${email})! Los recordatorios han sido desactivados.`);
+}
+
+/* ==========================================================================
+   5-Minute Continuous Usage Limit Engine (300 Seconds Block Gate)
+   ========================================================================== */
+
+let usageTimer = null;
+const MAX_USAGE_SECONDS = 300; // 5 minutes
+
+function initUsageLimitTimer() {
+  if (localStorage.getItem('kbox_user_subscribed') === 'true') {
+    return; // Subscribed users bypass 5-min limit
+  }
+
+  let elapsedSeconds = parseInt(sessionStorage.getItem('kbox_usage_seconds') || '0', 10);
+
+  usageTimer = setInterval(() => {
+    // If user subscribed while browsing, clear timer
+    if (localStorage.getItem('kbox_user_subscribed') === 'true') {
+      clearInterval(usageTimer);
+      return;
+    }
+
+    elapsedSeconds++;
+    sessionStorage.setItem('kbox_usage_seconds', elapsedSeconds.toString());
+
+    if (elapsedSeconds >= MAX_USAGE_SECONDS) {
+      clearInterval(usageTimer);
+      showTimeLimitModal();
+    }
+  }, 1000);
+}
+
+function showTimeLimitModal() {
+  const modal = document.getElementById('timeLimitModal');
+  if (modal) {
+    modal.classList.add('open');
+  }
+}
+
+function handleTimeLimitSubscribe(e) {
+  e.preventDefault();
+  const emailInput = document.getElementById('limitSubEmail');
+  if (!emailInput || !emailInput.value) return;
+
+  const email = emailInput.value.trim();
+  localStorage.setItem('kbox_user_subscribed', 'true');
+  localStorage.setItem('kbox_subscriber_email', email);
+
+  const modal = document.getElementById('timeLimitModal');
+  if (modal) {
+    modal.classList.remove('open');
+  }
+
+  hideAvatarToast();
+  if (toastInterval) clearInterval(toastInterval);
+
+  // Dispatch notification to huboxhubia@gmail.com
+  try {
+    fetch('https://formspree.io/f/xbjnqpyz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject: `[Suscripción Límite 5 Minutos] ${email}`,
+        destination: 'huboxhubia@gmail.com',
+        correo_suscriptor: email,
+        origen: '5-Minute Usage Limit Gate Modal',
+        timestamp: new Date().toISOString()
+      })
+    });
+  } catch (err) {
+    console.warn('Limit modal subscribe dispatch:', err);
+  }
+
+  alert(`¡Acceso desbloqueado! Gracias por suscribirte con ${email}.`);
+}
+
+/* ==========================================================================
+   Professional GDPR Cookie Management System
+   ========================================================================== */
+
+function initCookieConsentSystem() {
   const banner = document.getElementById('cookieBanner');
-  if (!localStorage.getItem('kbox_cookie_accepted') && banner) {
+  if (!localStorage.getItem('kbox_cookie_consent') && banner) {
     banner.classList.add('show');
   }
 }
 
-function acceptCookies() {
-  localStorage.setItem('kbox_cookie_accepted', 'true');
+function acceptAllCookies() {
+  localStorage.setItem('kbox_cookie_consent', 'all');
   const banner = document.getElementById('cookieBanner');
   if (banner) banner.classList.remove('show');
+}
+
+function rejectNonEssentialCookies() {
+  localStorage.setItem('kbox_cookie_consent', 'essential_only');
+  const banner = document.getElementById('cookieBanner');
+  if (banner) banner.classList.remove('show');
+}
+
+function openCookiePrefsModal() {
+  toggleCookiePrefsModal(true);
+}
+
+function toggleCookiePrefsModal(show) {
+  const modal = document.getElementById('cookiePrefsModal');
+  if (!modal) return;
+  if (show) modal.classList.add('open');
+  else modal.classList.remove('open');
+}
+
+function saveCookiePreferences() {
+  const analyticsAllowed = document.getElementById('prefAnalytics')?.checked ? 'analytics_allowed' : 'essential_only';
+  localStorage.setItem('kbox_cookie_consent', analyticsAllowed);
+
+  toggleCookiePrefsModal(false);
+  const banner = document.getElementById('cookieBanner');
+  if (banner) banner.classList.remove('show');
+
+  alert('Preferencias de cookies guardadas correctamente.');
 }
