@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "name": "kboxhubia-deeptech-portal",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/presentation",
+      "dest": "/presentation.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/docs/Presentacion_Ing_Jorge_Huerta_DeepTech_LinkedIn.pdf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Presentacion_Ing_Jorge_Huerta_DeepTech_LinkedIn.pdf\""
+        }
+      ]
+    }
+  ]
+}

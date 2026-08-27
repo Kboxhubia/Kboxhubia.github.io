@@ -878,3 +878,63 @@ function saveCookiePreferences() {
 
   alert('Preferencias de cookies guardadas correctamente.');
 }
+
+/* ==========================================================================
+   Presentation Section Lead Magnet & PDF Download Handler
+   ========================================================================== */
+async function handlePresentationLeadSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const emailInput = document.getElementById('presentationLeadEmail');
+  const btn = document.getElementById('presentationLeadBtn');
+  const notice = document.getElementById('presentationLeadNotice');
+
+  if (!emailInput || !emailInput.value) return;
+
+  const email = emailInput.value.trim();
+
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Procesando Suscripción... ⏳';
+  }
+
+  // Save subscription status
+  localStorage.setItem('kbox_user_subscribed', 'true');
+  localStorage.setItem('kbox_subscriber_email', email);
+
+  // Dispatch Formspree notification to huboxhubia@gmail.com
+  try {
+    await fetch('https://formspree.io/f/xbjnqpyz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject: `[Suscripción & Descarga Presentación DeepTech] ${email}`,
+        destination: 'huboxhubia@gmail.com',
+        correo_suscriptor: email,
+        origen: 'Sección Exclusiva Presentación index.html',
+        timestamp: new Date().toISOString()
+      })
+    });
+  } catch (err) {
+    console.warn('Lead magnet dispatch error:', err);
+  }
+
+  if (notice) {
+    notice.style.display = 'block';
+  }
+
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = '¡Suscrito! Descargando... ⚡';
+  }
+
+  // Trigger automated PDF download
+  const downloadAnchor = document.createElement('a');
+  downloadAnchor.href = './assets/docs/Presentacion_Ing_Jorge_Huerta_DeepTech_LinkedIn.pdf';
+  downloadAnchor.download = 'Presentacion_Ing_Jorge_Huerta_DeepTech_LinkedIn.pdf';
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  document.body.removeChild(downloadAnchor);
+
+  form.reset();
+}
